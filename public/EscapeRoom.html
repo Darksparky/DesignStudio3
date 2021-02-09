@@ -10,28 +10,39 @@
         <body>
             <a-scene>
                 <a-assets timeout="10000">
-                    <a-asset-item id="monitor_model"   response-type="arraybuffer" src="/assets/monitor.glb"  >
-                    <a-asset-item id="desk_model"      response-type="arraybuffer" src="/assets/desk.glb"     >
-                    <a-asset-item id="pinboard_model"  response-type="arraybuffer" src="/assets/pinboard.glb" >
+                    <a-asset-item id="room_model"   response-type="arraybuffer" src="/assets/Room.glb"  ></a-asset-item>
+                    <a-asset-item id="monitor_model" response-type="arraybuffer" src="/assets/Monitor.glb"></a-asset-item>
+                    <a-asset-item id="desk_model" response-type="arraybuffer" src="/assets/Desk.glb"></a-asset-item>
+                    <a-asset-item id="wall_with_door_model" response-type="arraybuffer" src="/assets/Wall_with_door.glb"></a-asset-item>
+                    <a-asset-item id="tv_model" response-type="arraybuffer" src="/assets/Tv.glb"></a-asset-item>
+                    <a-asset-item id="long_wall_model" response-type="arraybuffer" src="/assets/Long_Wall.glb"></a-asset-item>
+                    <a-asset-item id="shelves_model" response-type="arraybuffer" src="/assets/Shelves.glb"></a-asset-item>
+                    <a-asset-item id="bed_model" response-type="arraybuffer" src="/assets/Bed.glb"></a-asset-item>
+                    <a-asset-item id="floor_model" response-type="arraybuffer" src="/assets/Floor.glb"></a-asset-item>
+                    <a-asset-item id="door_model" response-type="arraybuffer" src="/assets/Door.glb"></a-asset-item>
                 </a-assets>
 
-
-                <a-entity   id="monitor_entity" position="0 0 0" rotation="0 0 0" scale="1 1 1"
-                            gltf-model="#monitor_model"
-                            shadow></a-entity>
-
-                <a-entity   id="table_entity" position="0 0 0" rotation="0 0 0" scale="1 1 1"
-                            gltf-model="#table_model"
-                            shadow></a-entity>
+                <a-entity camera="active: true" look-controls wasd-controls position="0 1.6 0" fov="90"></a-entity>
                 
-                <a-entity   id="pinboard_entity" position="0 0 0" rotation="0 0 0" scale="1 1 1"
-                            gltf-model="#pinboard_model"
-                            shadow></a-entity>
+                <a-entity   id="monitor_model" position="-1.5 0.88 -0.1" rotation="0 0 0" scale="0.33 0.33 0.33"
+                            gltf-model="#monitor_model"></a-entity>
+                
+               
+            
                 
                 <a-entity   id="room_entity">
-                        <a-entity id="walls_entity">
-                        
-                        </a-entity>
+                    <a-entity   id="Desk" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow></a-entity>
+                    <a-entity   id="TV" position="0 1 -2.49" rotation="0 0 0" scale="1 1 1" gltf-model="#tv_model" shadow></a-entity>
+                    <a-entity id="Walls">
+                        <a-entity id="West_Wall" position="-3 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow></a-entity>
+                        <a-entity id="Middle_Wall" position="3 0 0" rotation="0 270 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow></a-entity>
+                        <a-entity id="North_Wall" position="1.5 0 2.55" rotation="0 0 0" scale="1 1 1" gltf-model="#long_wall_model" shadow></a-entity>
+                        <a-entity id="South_Wall" position="1.5 0 -2.55" rotation="0 0 0" scale="1 1 1" gltf-model="#long_wall_model" shadow></a-entity>
+                    </a-entity>
+                <a-entity id="Exit_Door" position="-3 0 -1.51" rotation="0 0 0" scale="1 1 1" gltf-model="#door_model" shadow></a-entity>
+                <a-entity id="Middle_Door" position="3 0 1.51" rotation="0 0 0" scale="1 1 1" gltf-model="#door_model" shadow></a-entity>
+                <a-entity id="Bed" position="-2.48 0 1.48" rotation="0 0 0" scale="1 1 1" gltf-model="#bed_model" shadow></a-entity>
+                    <a-entity id="Floor"position="1.5 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#floor_model"></a-entity> 
                 </a-entity>
             </a-scene>
         </body>
