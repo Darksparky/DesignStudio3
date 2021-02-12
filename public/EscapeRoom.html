@@ -2,11 +2,12 @@
 <html>
         <head>
             <title>Escape Room - A-Frame</title>
-            <meta name = "description" content="IDK WHAT GOES HERE YET">
-            <script src= "https://aframe.io/releases/1.1.0/aframe.min.js"></script>
-            <script src= "js/securitycam.js"></script>
-            <script src= "js/numberkey.js"></script>
-            <script src= "Js/padlock.js"></script>
+            <meta name ="description" content="IDK WHAT GOES HERE YET">
+            <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+            <script src="js/securitycam.js"></script>
+            <script src="js/numberkey.js"></script>
+            <script src="js/padlock.js"></script>
+            <script src="js/spectator.js"></script>
 
         </head>
         <body>
@@ -35,29 +36,29 @@
                 </a-assets>
 
                
-                <a-entity id="playercam" camera wasd-controls="acceleration:25" look-controls position="0 1.6 0"></a-entity>
-                    <!--<a-entity position="-0.5 -0.5 0" light="type:spot; intensity:1.4; angle:40; penumbra:0.3; castShadow:false; shadowBias:-0.0007"></a-entity> -->
-                    <a-entity cursor="rayOrigin:mouse;" raycaster="far:10; interval:200; objects:.interactive"></a-entity>
-                <a-entity   id="monitor_model" position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33"
-                            gltf-model="#monitor_model"></a-entity>
-                
-
-                <a-entity id="Far_Room_Entity" position="10 0 0">
-                    
-                    <a-entity id="Security_Camera" camera position="2.6 2.6 2.45" rotation="-20 45 0" securitycam="canvas:#securitycamDiv" active="false"></a-entity>
-                    <a-entity id="Far_Door_Hinge" position="-2.6 0 -1.12" rotation="0 0 0" scale="1 1 1" animation__open="property:rotation.y; to:90; dur:200; startEvents:open;">
-                                <a-entity id="Far_Door" position="0 0 -0.38" rotation="0 0 0" scale="1 1 1" gltf-model="#door_model" shadow></a-entity>
-                            </a-entity>
-                    <a-entity id="Far_Walls">
-                        <a-entity id="Far_Room_North_Wall" position="0 0 -2.55" rotation="0 0 0" scale="1 1 1" gltf-model="#far_wall_model" shadow></a-entity>
-                        <a-entity id="Far_Room_South_Wall" position="0 0 2.55" rotation="0 0 0" scale="1 1 1" gltf-model="#far_wall_model" shadow></a-entity>
-                        <a-entity id="Far_Room_East_Wall" position="2.6 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#far_wall_model" shadow></a-entity>
-                        <a-entity id="Far_Room_West_Wall" position="-2.6 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow> 
-                            
-                        </a-entity>
-                    </a-entity>
-                    <a-entity id="Far_Floor" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#far_floor_model"></a-entity>
+                <a-entity id="playercam" camera wasd-controls="acceleration:25" look-controls position="0 1.6 1"></a-entity>
                    
+                    <a-entity cursor="rayOrigin:mouse;" raycaster="far:10; interval:200; objects:.interactive"></a-entity>
+                <a-entity   id="monitor_model" position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33" gltf-model="#monitor_model"></a-entity>
+
+                <a-entity id="Far_Room_Entity" position="10 0 0"> 
+                    
+                    <a-entity id="Security_Camera" camera position="2.4 2.4 2.4" rotation="-30 45 0" spectator="canvas:#securitycamDiv;" active="false"></a-entity>
+                    <a-entity   id="Light_Fixture" position="0 2.2 0" rotation="0 0 0" gltf-model="#light_fixture_model" shadow>
+                        <a-entity position="-0.5 -0.5 0" light="type:point; intensity:1; angle:40; penumbra:0.3; castShadow:false; shadowBias:-0.0007"></a-entity>
+                    </a-entity>
+                    <a-entity id="Far_Door_Hinge" position="-2.55 0 -1.12" rotation="0 0 0" scale="1 1 1" animation__open="property:rotation.y; to:90; dur:200; startEvents:open;">
+                            <a-entity id="Far_Door" position="0 0 -0.38" rotation="0 0 0" scale="1 1 1" gltf-model="#door_model" shadow></a-entity>
+                    </a-entity>
+                    <a-entity   id="Far_Exit_Sign" position="-2.49 2.21 -1.5" gltf-model="#exit_sign_model" shadow></a-entity>
+                    <a-entity id="Far_Walls">
+                        <a-entity id="Far_Room_North_Wall" position="0 0 -2.65" rotation="0 0 0" scale="1 1 1" gltf-model="#far_wall_model" shadow></a-entity>
+                        <a-entity id="Far_Room_South_Wall" position="0 0 2.65" rotation="0 0 0" scale="1 1 1" gltf-model="#far_wall_model" shadow></a-entity>
+                        <a-entity id="Far_Room_East_Wall" position="2.55 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#far_wall_model" shadow></a-entity>
+                        <a-entity id="Far_Room_West_Wall" position="-2.55 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow></a-entity>
+                    </a-entity>
+                  
+                    <a-entity id="Far_Floor" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#far_floor_model"></a-entity>
                     <a-entity   id="Far_Desk" position="0 0 -2.29" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow>
                         <a-entity   id="far_monitor_model" position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33"
                             gltf-model="#monitor_model"></a-entity>
@@ -65,14 +66,17 @@
                 </a-entity>
 
                 <a-entity   id="Main_Room_Entity">
+                    <a-entity   id="Exit_Sign" position="-2.9185 2.21 -1.5" gltf-model="#exit_sign_model" shadow></a-entity>
                     <a-entity   id="Desk" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow></a-entity>
                     <a-entity   id="Exit_Lock" position="-2.94 1.5 -0.9" rotation="0 0 180" gltf-model="#padlock_model" shadow></a-entity>
-                    <a-entity   id="Light_Fixture" position="0 2.2 0" rotation="0 0 0" gltf-model="#light_fixture_model" shadow></a-entity>
+                    <a-entity   id="Light_Fixture" position="0 2.2 0" rotation="0 0 0" gltf-model="#light_fixture_model" shadow>
+                        <a-entity position="-0.5 -0.5 0" light="type:point; intensity:1; angle:40; penumbra:0.3; castShadow:false; shadowBias:-0.0007"></a-entity>
+                    </a-entity>
                     <a-entity   id="Pinboard" position="0 0.75 2.495" rotation="0 0 0" gltf-model="#pinboard_model" shadow></a-entity>
                     <a-entity   id="TV" position="0 1 -2.49" rotation="0 0 0" scale="1 1 1" gltf-model="#tv_model" shadow>
-                        <a-entity geometry="primitive:plane;width:1.549;height:0.871;" position="0 0.4355 0.012" rotation="0 0 0" material="src:#tvscreen"></a-entity>
+                        
                     </a-entity>
-                
+                    <a-entity geometry="primitive:plane;width:1.549;height:0.871;" position="0 1.4355 -2.47" rotation="0 0 0" material="src:#canvas"></a-entity>
                     <a-entity id="Walls">
                         <a-entity id="West_Wall" position="-3 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow></a-entity>
                         <a-entity id="Middle_Wall" position="3 0 0" rotation="0 270 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow></a-entity>
@@ -80,6 +84,7 @@
                         <a-entity id="South_Wall" position="1.5 0 -2.55" rotation="0 0 0" scale="1 1 1" gltf-model="#long_wall_model" shadow></a-entity>
                         <a-entity id="East_Wall" position="6 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#far_wall_model" shadow></a-entity>
                     </a-entity>
+
                     <a-entity   id="Study_Desk_1" position="4.5 0 -2.13" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow></a-entity>
                     <a-entity   id="Study_Desk_2" position="5.6369 0 1.5" rotation="0 90 0" scale="1 1 1" gltf-model="#desk_model" shadow></a-entity>
                     <a-entity   id="Desk" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow></a-entity>
@@ -97,10 +102,10 @@
                 <a-entity id="Book" position="4.6 0.915 -2.05" rotation="0 90 90" scale="1 1 1" gltf-model="#book_model" shadow></a-entity>
                 
                 <a-entity id="Bed" position="-2.48 0 1.48" rotation="0 0 0" scale="1 1 1" gltf-model="#bed_model" shadow></a-entity>
-                    <a-entity id="Floor"position="1.5 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#floor_model"></a-entity> 
+                    <a-entity id="Floor"position="1.5 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#floor_model" shadow></a-entity> 
                 </a-entity>
 
             </a-scene>
-            <div style="height: 300px; width: 400px;" id="securitycamDiv"></div>
+            <div style="height: 1080px; width: 1920px;" id="securitycamDiv"></div>
         </body>
 </html>

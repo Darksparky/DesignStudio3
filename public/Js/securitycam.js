@@ -27,7 +27,7 @@ AFRAME.registerComponent('securitycam', {
         this.renderer.setSize(tvEl.offsetWidth, tvEl.offsetHeight);
         
         tvEl.appendChild(this.renderer.domElement);
-        this.renderer.domElement.id="tvscreen";
+        this.renderer.domElement.id="canvas";
         this.renderer.domElement.crossorigin="anonymous";
         //definitely will need to change h and w so they are at least 16:9
         this.renderer.domElement.height=300;
