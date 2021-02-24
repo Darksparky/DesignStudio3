@@ -1,9 +1,4 @@
 AFRAME.registerComponent('securitycam', {
-
-//This is based off of https://wirewhiz.com/how-to-use-a-cameras-output-as-a-texture-in-aframe/
-//I expect that I will need to change it significantly, but if not I will cite the source
-
-
     schema: {
         canvas: {
             type: 'string',
@@ -59,3 +54,7 @@ AFRAME.registerComponent('securitycam', {
     }
 
 })
+
+//This is based off of https://wirewhiz.com/how-to-use-a-cameras-output-as-a-texture-in-aframe/
+//I expect that I will need to change it significantly, but if not I will cite the source
+

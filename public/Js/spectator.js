@@ -20,8 +20,8 @@ AFRAME.registerComponent('spectator',{
                      targetEl.appendChild(this.renderer.domElement);
          this.renderer.domElement.id = "canvas";
          this.renderer.domElement.crossorigin="anonymous"
-                   this.renderer.domElement.height=1080; 
-                   this.renderer.domElement.width=1920;
+                   this.renderer.domElement.height=720; 
+                   this.renderer.domElement.width=1280;
                      this.el.removeAttribute('look-controls');
                      this.el.removeAttribute('wasd-controls');
                    console.log(this.renderer.domElement);
@@ -31,7 +31,7 @@ AFRAME.registerComponent('spectator',{
                    var loopFPS = 1000.0 / timeDelta;
                    var hmdIsXFasterThanDesiredFPS = loopFPS / this.data.fps;
                    var renderEveryNthFrame = Math.round(hmdIsXFasterThanDesiredFPS);
-                   if(this.counter % renderEveryNthFrame === 0){
+                   if(this.counter % renderEveryNthFrame == 0){
                           this.render(timeDelta);
                    }
          this.counter += 1;  

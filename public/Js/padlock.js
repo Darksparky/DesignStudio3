@@ -12,10 +12,35 @@ AFRAME.registerComponent('padlock',{
         isLocked: {
             type: 'boolean',
             default: true
+        },
+        door: {
+            type: 'string',
+            default: ''
+        },
+        isOpen: {
+            type: 'boolean',
+            default: false
         }
 
     },
 
+    init: function(){
+        let doorEL = document.querySelector(this.data.door);
+        let CONTEXT_AF = this;
+        this.el.addEventListener('click', function(){
+           // this.openDoor();
+            if(CONTEXT_AF.data.isOpen){
+                doorEL.emit('close');
+                console.log('close door');
+                CONTEXT_AF.data.isOpen=false;
+            }else{
+                doorEL.emit('open');
+                console.log("open door");
+                CONTEXT_AF.data.isOpen=true;
+            }
+           
+        })
+    },
 
     addNumber: function(inputNumber){
         if(this.data.input.length<4){
@@ -45,7 +70,8 @@ AFRAME.registerComponent('padlock',{
     },
 
     openDoor: function(){
-      //create open event to open door
+      //create open event to open door\
+      this.el.emit('open');
     },
 
     updateDisplayText: function(){
