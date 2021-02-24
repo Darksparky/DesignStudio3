@@ -31,7 +31,7 @@ AFRAME.registerComponent('spectator',{
                    var loopFPS = 1000.0 / timeDelta;
                    var hmdIsXFasterThanDesiredFPS = loopFPS / this.data.fps;
                    var renderEveryNthFrame = Math.round(hmdIsXFasterThanDesiredFPS);
-                   if(this.counter % renderEveryNthFrame == 0){
+                   if(this.counter % renderEveryNthFrame === 0){
                           this.render(timeDelta);
                    }
          this.counter += 1;  

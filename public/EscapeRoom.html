@@ -32,6 +32,9 @@
                     <a-asset-item id="small_ceiling_model" response-type="arraybuffer" src="/assets/Small_Ceiling.glb"></a-asset-item>
                     <a-asset-item id="book_model" response-type="arraybuffer" src="/assets/Book.glb"></a-asset-item>
                     <a-asset-item id="far_floor_model" response-type="arraybuffer" src="/assets/Far_Floor.glb"></a-asset-item>
+                    <a-asset-item id="delete_button_model" response-type="arraybuffer" src="/assets/Delete_Button.glb"></a-asset-item>
+                    <a-asset-item id="enter_button_model" response-type="arraybuffer" src="/assets/Enter_Button.glb"></a-asset-item>
+                    <a-asset-item id="key_pad_button_model" response-type="arraybuffer" src="/assets/Key_Pad_Button.glb"></a-asset-item>
                 </a-assets>
 
                
@@ -39,16 +42,22 @@
                    
                     <a-entity cursor="rayOrigin:mouse;" raycaster="far:10; interval:200; objects:.interactive"></a-entity>
                 <a-entity   id="monitor_model" position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33" gltf-model="#monitor_model"></a-entity>
-
+                
+                <!--Everything in the inaccessible room should be a child of Far_Room_entity.-->
                 <a-entity id="Far_Room_Entity" position="10 0 0"> 
                     
                     <a-entity id="Security_Camera" camera position="0 1.6 0" rotation="0 0 0" spectator="canvas:#securitycamDiv;" active="false"></a-entity>
                     <!--<a-entity   id="Light_Fixture" position="0 2.2 0" rotation="0 0 0" gltf-model="#light_fixture_model" shadow></a-entity>-->
                     <a-entity position="0 2.2 0" light="type:point; intensity:1; angle:40; penumbra:0.3; castShadow:false; shadowBias:-0.0007"></a-entity>
+                    
+                    <!--Doors are done by being parented to a hinge. This allows for them to simply do a local rotation to open.-->
                     <a-entity id="Far_Door_Hinge" position="-2.55 0 -1.12" rotation="0 0 0" scale="1 1 1" animation__open="property:rotation.y; to:90; dur:200; startEvents:open;">
                             <a-entity id="Far_Door" position="0 0 -0.38" rotation="0 0 0" scale="1 1 1" gltf-model="#door_model" shadow></a-entity>
                     </a-entity>
+                    
                     <a-entity   id="Far_Exit_Sign" position="-2.49 2.21 -1.5" gltf-model="#exit_sign_model" shadow></a-entity>
+
+                    <!--The walls of the room are all parented under a larger object for organizational purposes.-->
                     <a-entity id="Far_Walls">
                         <a-entity id="Far_Room_North_Wall" position="0 0 -2.65" rotation="0 0 0" scale="1 1 1" gltf-model="#far_wall_model" shadow></a-entity>
                         <a-entity id="Far_Room_South_Wall" position="0 0 2.65" rotation="0 0 0" scale="1 1 1" gltf-model="#far_wall_model" shadow></a-entity>
@@ -63,19 +72,62 @@
                     </a-entity>
                 </a-entity>
 
+                <!--Everything in the starting room should be a child of Main_Room_Entity.-->
                 <a-entity   id="Main_Room_Entity">
                     <a-entity   id="Exit_Sign" position="-2.9185 2.21 -1.5" gltf-model="#exit_sign_model" shadow></a-entity>
                     <a-entity   id="Desk" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow></a-entity>
-                    <a-entity   id="Exit_Lock" class="interactive" position="-2.94 1.5 -0.9" rotation="0 0 180" gltf-model="#padlock_model" shadow padlock="door:#Exit_Door_Hinge;"></a-entity>
-                    <a-entity   id="Closet_Lock" class="interactive" position="2.94 1.5 0.9" rotation="0 0 180" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge;"></a-entity>
+                    <a-entity   id="Exit_Lock" class="interactive" position="-2.94 1.2 -0.9" rotation="0 0 0" gltf-model="#padlock_model" shadow padlock="door:#Exit_Door_Hinge;">
+
+                    </a-entity>
+
+                    <a-entity   id="Closet_Lock" class="interactive" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge;">
+                    
+                        <a-entity id="Closet_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:Ent; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Delete_Button" class="interactive" position="0.01 0.02 -0.03" rotation="0 0 0" gltf-model="#delete_button_model" animation__press="property:position; from:0 0.02 -0.03; to:0.01 0.02 -0.03; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:Del; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Zero_Button" class="interactive" position="0.01 0.02 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.02 0; to:0.01 0.02 0; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:0; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_One_Button" class="interactive" position="0.01 0.11 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0.03; to:0.01 0.11 0.03; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:1; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Two_Button" class="interactive" position="0.01 0.11 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0; to:0.01 0.11 0; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:2; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Three_Button" class="interactive" position="0.01 0.11 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 -0.03; to:0.01 0.11 -0.03; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:3; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Four_Button" class="interactive" position="0.01 0.08 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0.03; to:0.01 0.08 0.03; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:4; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Five_Button" class="interactive" position="0.01 0.08 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0; to:0.01 0.08 0; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:5; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Six_Button" class="interactive" position="0.01 0.08 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 -0.03; to:0.01 0.08 -0.03; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:6; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Seven_Button" class="interactive" position="0.01 0.05 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0.03; to:0.01 0.05 0.03; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:7; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Eight_Button" class="interactive" position="0.01 0.05 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0; to:0.01 0.05 0; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:8; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Nine_Button" class="interactive" position="0.01 0.05 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 -0.03; to:0.01 0.05 -0.03; dur:100; startEvents:click" shadow>
+                            <a-entity text="value:9; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                    </a-entity>
                     <a-entity   id="Light_Fixture" position="0 2.2 0" rotation="0 0 0" gltf-model="#light_fixture_model" shadow>
                         <a-entity position="-0.5 -0.5 0" light="type:point; intensity:1; angle:40; penumbra:0.3; castShadow:false; shadowBias:-0.0007"></a-entity>
                     </a-entity>
                     <a-entity   id="Pinboard" position="0 0.75 2.495" rotation="0 0 0" gltf-model="#pinboard_model" shadow></a-entity>
                     <a-entity   id="TV" position="0 1 -2.49" rotation="0 0 0" scale="1.1 1.1 1.1" gltf-model="#tv_model" shadow>
-                        
+                   
                     </a-entity>
                     <a-entity geometry="primitive:plane;width:1.549;height:0.871;" position="0 1.5 -2.47" rotation="0 0 0" material="src:#canvas"></a-entity>
+                    <!--The walls of the room are all parented under a larger object for organizational purposes.-->
                     <a-entity id="Walls">
                         <a-entity id="West_Wall" position="-3 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow></a-entity>
                         <a-entity id="Middle_Wall" position="3 0 0" rotation="0 270 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow></a-entity>
@@ -90,10 +142,13 @@
                     <a-entity id="Shelves_1" position="2.75 0 -1.28" rotation="0 0 0" scale="1 1 1" gltf-model="#shelves_model" shadow></a-entity>
                     <a-entity id="Shelves_2" position="5.7685 0 -1.28" rotation="0 0 0" scale="1 1 1" gltf-model="#shelves_model" shadow></a-entity>
                     <a-entity id="Shelves_3" position="3.224 0 -1.28" rotation="0 0 0" scale="1 1 1" gltf-model="#shelves_model" shadow></a-entity>
+                
+                <!--Doors are done by being parented to a hinge. This allows for them to simply do a local rotation to open.-->
                 <a-entity id="Exit_Door_Hinge" position="-3 0 -1.12" rotation="0 0 0" scale="1 1 1" animation__open="property:rotation.y; to:90; dur:200; startEvents:open;" animation__close="property:rotation.y; to:0; dur:200; startEvents:close;">
                     <a-entity id="Exit_Door" position="0 0 -0.38" rotation="0 0 0" scale="1 1 1" gltf-model="#door_model" shadow></a-entity>
                 </a-entity>
-               
+
+               <!--Doors are done by being parented to a hinge. This allows for them to simply do a local rotation to open.-->
                 <a-entity id="Middle_Door_Hinge" position="3 0 1.12" animation__open="property:rotation.y; to:90; dur:200; startEvents:open;" animation__close="property:rotation.y; to:0; dur:200; startEvents:close;">
                     <a-entity id="Middle_Door" position="0 0 0.38" rotation="0 0 0" scale="1 1 1" gltf-model="#door_model" shadow></a-entity>
                 </a-entity>
