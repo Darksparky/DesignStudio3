@@ -1,0 +1,27 @@
+AFRAME.registerComponent('enterkey', {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+});

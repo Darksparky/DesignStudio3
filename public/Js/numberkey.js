@@ -4,19 +4,19 @@ AFRAME.registerComponent('numberkey', {
             type: 'string',
             default: ''
         },
-        parentPadlock: {
-            type: 'asset',
-            default: ''
+        parentpadlock: {
+            type: 'selector'
         }
     },
 
     //When you press the number key it needs to send it to the padlock assigned to it
 
     init: function(){
-    
+    let data = this.data;
     this.el.addEventListener('click', function(){
-         let padlockComponent = parentPadlock.components.padlock;
-            padlockComponent.addNumber(this.data.value);
+        let padlockComponent = data.parentpadlock.components.padlock;
+        console.log("listened to keypad click.");
+        padlockComponent.addNumber(data.value);
     } )
 
     },

@@ -8,6 +8,8 @@
             <script src="js/numberkey.js"></script>
             <script src="js/padlock.js"></script>
             <script src="js/spectator.js"></script>
+            <script src="js/enterkey.js"></script>
+            <script src="js/deletekey.js"></script>
 
         </head>
         <body>
@@ -80,42 +82,42 @@
 
                     </a-entity>
 
-                    <a-entity   id="Closet_Lock" class="interactive" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge;">
-                    
+                    <a-entity   id="Closet_Lock" class="interactive" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge; lcd:#Closet_Lock_LCD;">
+                        <a-entity id="Closet_Lock_LCD" text="value:----; color:white; width:1; align:center;" position="0.01 0.18 0" rotation="0 90 0"></a-entity>
                         <a-entity id="Closet_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" shadow>
                             <a-entity text="value:Ent; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
                         <a-entity id="Closet_Lock_Delete_Button" class="interactive" position="0.01 0.02 -0.03" rotation="0 0 0" gltf-model="#delete_button_model" animation__press="property:position; from:0 0.02 -0.03; to:0.01 0.02 -0.03; dur:100; startEvents:click" shadow>
                             <a-entity text="value:Del; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
-                        <a-entity id="Closet_Lock_Zero_Button" class="interactive" position="0.01 0.02 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.02 0; to:0.01 0.02 0; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_Zero_Button" class="interactive" position="0.01 0.02 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.02 0; to:0.01 0.02 0; dur:100; startEvents:click" shadow numberkey="value:0; parentpadlock: #Closet_Lock;">
                             <a-entity text="value:0; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
-                        <a-entity id="Closet_Lock_One_Button" class="interactive" position="0.01 0.11 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0.03; to:0.01 0.11 0.03; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_One_Button" class="interactive" position="0.01 0.11 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0.03; to:0.01 0.11 0.03; dur:100; startEvents:click" shadow numberkey="value:1; parentpadlock: #Closet_Lock;">
                             <a-entity text="value:1; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
-                        <a-entity id="Closet_Lock_Two_Button" class="interactive" position="0.01 0.11 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0; to:0.01 0.11 0; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_Two_Button" class="interactive" position="0.01 0.11 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0; to:0.01 0.11 0; dur:100; startEvents:click" shadow numberkey="value:2; parentpadlock: #Closet_Lock;">
                             <a-entity text="value:2; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
-                        <a-entity id="Closet_Lock_Three_Button" class="interactive" position="0.01 0.11 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 -0.03; to:0.01 0.11 -0.03; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_Three_Button" class="interactive" position="0.01 0.11 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 -0.03; to:0.01 0.11 -0.03; dur:100; startEvents:click" shadow numberkey="value:3; parentpadlock: #Closet_Lock;">
                             <a-entity text="value:3; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
-                        <a-entity id="Closet_Lock_Four_Button" class="interactive" position="0.01 0.08 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0.03; to:0.01 0.08 0.03; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_Four_Button" class="interactive" position="0.01 0.08 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0.03; to:0.01 0.08 0.03; dur:100; startEvents:click" shadow numberkey="value:4; parentpadlock: #Closet_Lock;">
                             <a-entity text="value:4; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
-                        <a-entity id="Closet_Lock_Five_Button" class="interactive" position="0.01 0.08 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0; to:0.01 0.08 0; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_Five_Button" class="interactive" position="0.01 0.08 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0; to:0.01 0.08 0; dur:100; startEvents:click" shadow numberkey="value:5; parentpadlock: #Closet_Lock;">
                             <a-entity text="value:5; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
-                        <a-entity id="Closet_Lock_Six_Button" class="interactive" position="0.01 0.08 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 -0.03; to:0.01 0.08 -0.03; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_Six_Button" class="interactive" position="0.01 0.08 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 -0.03; to:0.01 0.08 -0.03; dur:100; startEvents:click" shadow numberkey="value:6; parentpadlock: #Closet_Lock;">
                             <a-entity text="value:6; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
-                        <a-entity id="Closet_Lock_Seven_Button" class="interactive" position="0.01 0.05 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0.03; to:0.01 0.05 0.03; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_Seven_Button" class="interactive" position="0.01 0.05 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0.03; to:0.01 0.05 0.03; dur:100; startEvents:click" shadow numberkey="value:7; parentpadlock: #Closet_Lock;">
                             <a-entity text="value:7; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
-                        <a-entity id="Closet_Lock_Eight_Button" class="interactive" position="0.01 0.05 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0; to:0.01 0.05 0; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_Eight_Button" class="interactive" position="0.01 0.05 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0; to:0.01 0.05 0; dur:100; startEvents:click" shadow numberkey="value:8; parentpadlock: #Closet_Lock;">
                             <a-entity text="value:8; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
-                        <a-entity id="Closet_Lock_Nine_Button" class="interactive" position="0.01 0.05 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 -0.03; to:0.01 0.05 -0.03; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_Nine_Button" class="interactive" position="0.01 0.05 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 -0.03; to:0.01 0.05 -0.03; dur:100; startEvents:click" shadow numberkey="value:9; parentpadlock: #Closet_Lock;">
                             <a-entity text="value:9; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
                     </a-entity>
