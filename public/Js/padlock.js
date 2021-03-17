@@ -3,7 +3,7 @@ AFRAME.registerComponent('padlock',{
     schema: {
         password: {
             type: 'string',
-            default: '4545'
+            default: '0000'
         },
         input: {
             type: 'string',
@@ -29,22 +29,17 @@ AFRAME.registerComponent('padlock',{
     },
 
     init: function(){
-        let doorEL = document.querySelector(this.data.door);
+  
         var CONTEXT_AF = this;
         
         //ent used to be click
         this.el.addEventListener('ent', function(){
            // this.openDoor();
-            if(CONTEXT_AF.data.isOpen){
-                doorEL.emit('close');
-                console.log('close door');
-                CONTEXT_AF.data.isOpen=false;
-            }else{
-                doorEL.emit('open');
-                console.log("open door");
-                CONTEXT_AF.data.isOpen=true;
-            }
-           
+            CONTEXT_AF.checkPassword();
+        })
+        this.el.addEventListener('del', function(){
+            CONTEXT_AF.data.input = '----';
+            CONTEXT_AF.updateDisplayText();
         })
     },
 
@@ -53,17 +48,20 @@ AFRAME.registerComponent('padlock',{
             this.data.input += inputNumber;
             this.updateDisplayText();
         } else if(this.data.input.length===4){
-            this.checkPassword();
+           this.data.input = ''+ inputNumber;
+           this.updateDisplayText();
         }
     },
+    
 
     checkPassword: function(){
         if(this.data.password === this.data.input){
             if(this.data.isLocked == true){
                 this.data.isLocked = false;
                 //reset input
-                this.data.input = '----';
+                
                 this.updateDisplayText();
+                this.openDoor();
             }else{
                 this.data.isLocked = true;
                 //reset input
@@ -78,7 +76,16 @@ AFRAME.registerComponent('padlock',{
 
     openDoor: function(){
       //create open event to open door\
-      this.el.emit('open');
+        let doorEL = document.querySelector(this.data.door);
+        if(this.data.isOpen){
+            doorEL.emit('close');
+            console.log('close door');
+            this.data.isOpen=false;
+        }else{
+            doorEL.emit('open');
+            console.log("open door");
+            this.data.isOpen=true;
+        }
     },
 
 //update text for the padlock here

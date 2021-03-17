@@ -84,10 +84,10 @@
 
                     <a-entity   id="Closet_Lock" class="interactive" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge; lcd:#Closet_Lock_LCD;">
                         <a-entity id="Closet_Lock_LCD" text="value:----; color:white; width:1; align:center;" position="0.01 0.18 0" rotation="0 90 0"></a-entity>
-                        <a-entity id="Closet_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" enterkey="parentpadlock:#Closet_Lock" shadow>
                             <a-entity text="value:Ent; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
-                        <a-entity id="Closet_Lock_Delete_Button" class="interactive" position="0.01 0.02 -0.03" rotation="0 0 0" gltf-model="#delete_button_model" animation__press="property:position; from:0 0.02 -0.03; to:0.01 0.02 -0.03; dur:100; startEvents:click" shadow>
+                        <a-entity id="Closet_Lock_Delete_Button" class="interactive" position="0.01 0.02 -0.03" rotation="0 0 0" gltf-model="#delete_button_model" animation__press="property:position; from:0 0.02 -0.03; to:0.01 0.02 -0.03; dur:100; startEvents:click" deletekey="parentpadlock:#Closet_Lock" shadow>
                             <a-entity text="value:Del; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
                         </a-entity>
                         <a-entity id="Closet_Lock_Zero_Button" class="interactive" position="0.01 0.02 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.02 0; to:0.01 0.02 0; dur:100; startEvents:click" shadow numberkey="value:0; parentpadlock: #Closet_Lock;">
