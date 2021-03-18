@@ -20,8 +20,8 @@ AFRAME.registerComponent('spectator',{
                      targetEl.appendChild(this.renderer.domElement);
          this.renderer.domElement.id = "canvas";
          this.renderer.domElement.crossorigin="anonymous"
-                   this.renderer.domElement.height=720; 
-                   this.renderer.domElement.width=1280;
+                   this.renderer.domElement.height=360; 
+                   this.renderer.domElement.width=640;
                      this.el.removeAttribute('look-controls');
                      this.el.removeAttribute('wasd-controls');
                    console.log(this.renderer.domElement);
