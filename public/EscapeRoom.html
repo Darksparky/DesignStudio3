@@ -131,7 +131,7 @@
                         </a-entity>
                     </a-entity>
 
-                    <a-entity   id="Closet_Lock" class="interactive" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge; lcd:#Closet_Lock_LCD;" static-body>
+                    <a-entity   id="Closet_Lock" class="interactive" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge; lcd:#Closet_Lock_LCD; password: 3211" static-body>
                         <a-entity id="Closet_Lock_LCD" text="value:----; color:white; width:1; align:center;" position="0.01 0.18 0" rotation="0 90 0"></a-entity>
                         <a-entity id="Closet_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" enterkey="parentpadlock:#Closet_Lock" shadow>
                             <a-entity text="value:Ent; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
@@ -173,7 +173,13 @@
                     <a-entity   id="Light_Fixture" position="0 2.2 0" rotation="0 0 0" gltf-model="#light_fixture_model" shadow>
                         <a-entity position="-0.5 -0.5 0" light="type:point; intensity:1; angle:40; penumbra:0.3; castShadow:false; shadowBias:-0.0007"></a-entity>
                     </a-entity>
-                    <a-entity   id="Pinboard" position="0 0.75 2.495" rotation="0 0 0" gltf-model="#pinboard_model" shadow></a-entity>
+                    <a-entity   id="Pinboard" position="0 0.75 2.495" rotation="0 0 0" gltf-model="#pinboard_model" shadow>
+                        <a-entity text="value:Grocery List; color:black; width:0.8; align:center;" position="0.5 1 -0.2" rotation="0 180 0"></a-entity>
+                        <a-entity text="value:3 Carrots; color:black; width:0.8; align:center;" position="0.498 0.943 -0.2" rotation="0 180 0"></a-entity>
+                        <a-entity text="value:2 Onions; color:black; width:0.8; align:center;" position="0.5 0.893 -0.2" rotation="0 180 0"></a-entity>
+                        <a-entity text="value:1 Bag of Rice; color:black; width:0.8; align:center;" position="0.469 0.845 -0.2" rotation="0 180 0"></a-entity>
+                        <a-entity text="value:1 Chicken; color:black; width:0.8; align:center;" position="0.498 0.798 -0.2" rotation="0 180 0"></a-entity>
+                    </a-entity>
                     <a-entity   id="TV" position="0 1 -2.49" rotation="0 0 0" scale="1.1 1.1 1.1" gltf-model="#tv_model" shadow>
                    
                     </a-entity>
