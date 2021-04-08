@@ -3,6 +3,7 @@
         <head>
             <title>Escape Room - A-Frame</title>
             <meta name ="description" content="IDK WHAT GOES HERE YET">
+            
             <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
             <script src="js/securitycam.js"></script>
             <script src="js/numberkey.js"></script>
@@ -14,11 +15,22 @@
             <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v3.3.0/dist/aframe-physics-system.min.js"></script>
             <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v5.0.0/dist/aframe-extras.min.js"></script>
             <!--Links Ammo physics driver part of the afformentioned system, based on bullet (bulletphysics.org) which is also free to use for any purpose-->
-            
+            <script src="/socket.io/socket.io.js"></script>
         </head>
+        
         <body>
+            <script>
+                //let socket = io();
+
+                //socket.on('connect', (data)=>{
+                    //document.querySelector().addEventListener('', function(){
+                    //  socket.emit('');
+                    //})
+               // });
+
+            </script>
             <a-scene physics="debug: false; gravity: 0">
-                <a-assets timeout="10000">
+                <a-assets timeout="50000">
                     <a-asset-item id="room_model"   response-type="arraybuffer" src="/assets/Room.glb"  ></a-asset-item>
                     <a-asset-item id="monitor_model" response-type="arraybuffer" src="/assets/Monitor.glb"></a-asset-item>
                     <a-asset-item id="desk_model" response-type="arraybuffer" src="/assets/Desk.glb"></a-asset-item>
