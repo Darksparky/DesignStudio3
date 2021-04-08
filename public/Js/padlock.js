@@ -1,4 +1,3 @@
-const { Socket } = require("socket.io");
 
 AFRAME.registerComponent('padlock',{
 
@@ -26,7 +25,12 @@ AFRAME.registerComponent('padlock',{
         lcd: {
             type: 'selector',
             default: ''
+        },
+        padID: {
+            type: 'string',
+            default: ''
         }
+        
 
     },
 
@@ -77,8 +81,26 @@ AFRAME.registerComponent('padlock',{
     },
 
     openDoor: function(){
+        let socket = io();
       //create open event to open door\
         let doorEL = document.querySelector(this.data.door);
+        
+        if(this.data.isOpen){
+            doorEL.emit('close');
+            console.log('close door');
+            this.data.isOpen=false;
+        }else{
+            doorEL.emit('open');
+            console.log("open door");
+            this.data.isOpen=true;
+        }
+        socket.emit('openDoor', this.data.padID, this.data.isOpen);
+    },
+
+    //sync door is only to be called by the socket
+    syncDoor: function(){
+        let doorEL = document.querySelector(this.data.door);
+        
         if(this.data.isOpen){
             doorEL.emit('close');
             console.log('close door');
@@ -101,6 +123,10 @@ AFRAME.registerComponent('padlock',{
             width: 1,
             align:'center'
         });  
+    },
+
+    getIsOpen: function(){
+        return this.data.isOpen;
     }
 
 

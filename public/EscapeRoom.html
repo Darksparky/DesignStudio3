@@ -20,7 +20,15 @@
         
         <body>
             <script>
+
                 let socket = io();
+                class Player {
+                    constructor(id, pos, rot){
+                    this.id = id;
+                    this.pos = pos;
+                    this.rot = rot;
+                    }
+                }
 
                 socket.on('connect', (data)=>{
                     //document.querySelector().addEventListener('', function(){
@@ -28,10 +36,36 @@
                     //})
                     console.log('connected');
 
+                    let plyrEl = document.querySelector('#player');
+                    let pos = plyrEl.components.position;
+                    let rot = plyrEl.components.rotation;
+                    socket.emit('Set_Player', socket.id, pos, rot);
                 });
 
+                socket.on('Sync_Closet',(isOpen)=>{
+                    console.log('Recieved Sync_Closet');
+                    let pad = document.querySelector('#Closet_Lock').components.padlock;
+                    if(pad.data.isOpen!=isOpen){
+                        pad.syncDoor();
+                    }
+                });
+                socket.on('Sync_Exit',(isOpen)=>{
+                    console.log('Recieved Sync_Exit');
+                    let pad = document.querySelector('#Exit_Lock').components.padlock;
+                    if(pad.data.isOpen!=isOpen){
+                        pad.syncDoor();
+                    }
+                });
+                socket.on('Update_Players',(Players)=>{
+                    Players.forEach(Player, plyr => {
+                        console.log(plyr);
+                    });
+
+                })
+                
+
             </script>
-            
+
             <a-scene physics="debug: false; gravity: 0">
                 <a-assets timeout="50000">
                     <a-asset-item id="room_model"   response-type="arraybuffer" src="/assets/Room.glb"  ></a-asset-item>
@@ -62,7 +96,7 @@
                 
                 <a-entity id="playercam" kinematic-body="radius: 0.3" movement-controls position="0 0 1" >
                     <a-entity camera position="0 1.6 0" look-controls></a-entity>
-                    <a-cylinder height="2" radius="0.3" color="green" position="0 1 0"></a-cylinder>
+                    <a-cylinder id="player" height="2" radius="0.3" color="green" position="0 1 0" rotation="0 0 0"></a-cylinder>
                   </a-entity>
                     <a-entity cursor="rayOrigin:mouse;" raycaster="far:10; interval:200; objects:.interactive"></a-entity>
                 <a-entity   id="monitor_model" position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33" gltf-model="#monitor_model"></a-entity>
@@ -106,7 +140,7 @@
                 <a-entity   id="Main_Room_Entity">
                     <a-entity   id="Exit_Sign" position="-2.9185 2.21 -1.5" gltf-model="#exit_sign_model" shadow></a-entity>
                     <a-entity   id="Desk" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow></a-entity>
-                    <a-entity   id="Exit_Lock" class="interactive" position="-2.94 1.2 -0.9" rotation="0 0 0" gltf-model="#padlock_model" shadow padlock="door:#Exit_Door_Hinge; password: 1111; lcd:#Exit_Lock_LCD;">
+                    <a-entity   id="Exit_Lock" class="interactive" position="-2.94 1.2 -0.9" rotation="0 0 0" gltf-model="#padlock_model" shadow padlock="door:#Exit_Door_Hinge; password: 1111; lcd:#Exit_Lock_LCD; padID:Exit_Lock;">
                         <a-entity id="Exit_Lock_LCD" text="value:----; color:white; width:1; align:center;" position="0.01 0.18 0" rotation="0 90 0"></a-entity>
                         <a-entity id="Exit_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" enterkey="parentpadlock:#Exit_Lock" shadow>
                             <a-entity text="value:Ent; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
@@ -146,7 +180,7 @@
                         </a-entity>
                     </a-entity>
 
-                    <a-entity   id="Closet_Lock" class="interactive" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge; lcd:#Closet_Lock_LCD; password: 3211" static-body>
+                    <a-entity   id="Closet_Lock" class="interactive" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge; lcd:#Closet_Lock_LCD; password: 3211; padID:Closet_Lock;" static-body>
                         <a-entity id="Closet_Lock_LCD" text="value:----; color:white; width:1; align:center;" position="0.01 0.18 0" rotation="0 90 0"></a-entity>
                         <a-entity id="Closet_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" enterkey="parentpadlock:#Closet_Lock" shadow>
                             <a-entity text="value:Ent; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
