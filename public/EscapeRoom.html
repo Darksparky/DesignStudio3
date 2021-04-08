@@ -20,15 +20,18 @@
         
         <body>
             <script>
-                //let socket = io();
+                let socket = io();
 
-                //socket.on('connect', (data)=>{
+                socket.on('connect', (data)=>{
                     //document.querySelector().addEventListener('', function(){
                     //  socket.emit('');
                     //})
-               // });
+                    console.log('connected');
+
+                });
 
             </script>
+            
             <a-scene physics="debug: false; gravity: 0">
                 <a-assets timeout="50000">
                     <a-asset-item id="room_model"   response-type="arraybuffer" src="/assets/Room.glb"  ></a-asset-item>

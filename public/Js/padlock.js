@@ -1,3 +1,5 @@
+const { Socket } = require("socket.io");
+
 AFRAME.registerComponent('padlock',{
 
     schema: {
