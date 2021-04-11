@@ -11,6 +11,7 @@
             <script src="js/spectator.js"></script>
             <script src="js/enterkey.js"></script>
             <script src="js/deletekey.js"></script>
+            <script src="js/userplayer.js"></script>
             <!--Links Physics System by Don McCurdy and 17 other contributors...It is free to use commercially under the MIT License -->
             <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v3.3.0/dist/aframe-physics-system.min.js"></script>
             <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v5.0.0/dist/aframe-extras.min.js"></script>
@@ -22,24 +23,78 @@
             <script>
 
                 let socket = io();
+                var otherPlayers = [];
                 class Player {
+                    pos = {
+                        x: 0,
+                        y: 0,
+                        z: 0 
+                    };
+      
+                    rot = {
+                        x: 0,
+                        y: 0,
+                        z: 0
+                    };
+
                     constructor(id, pos, rot){
-                    this.id = id;
-                    this.pos = pos;
-                    this.rot = rot;
+                        this.id = id;
+                        this.pos = pos;
+                        this.rot = rot;
+                    };
+                }
+                function createPlayer(id){
+                    let newPlayer = document.createElement("a-entity");
+                            newPlayer.setAttribute('otherplayer', id)
+                            const manager = document.querySelector('#player_master');
+                            manager.appendChild(newPlayer);
+                            let newBody = document.createElement("a-cylinder");
+                            newBody.setAttribute('height', 2);
+                            newBody.setAttribute('radius', 0.3);
+                            newBody.setAttribute('color', 'green');
+                            newBody.setAttribute('position', '0 1 0');
+                            newPlayer.appendChild(newBody);
+                            otherPlayers.push(newPlayer);
+                            console.log('newplayer created');
+                }
+                
+                function checkForExistingOtherPlayer(playerList){
+                    if(playerList.includes(function(element){
+                        if(element.components.getID == id){
+                            return true;
+                        }
+                    })==false){
+                        createPlayer(id);
+                    }else{
+                        console.log('player already exists with that id');
                     }
                 }
-
                 socket.on('connect', (data)=>{
                     //document.querySelector().addEventListener('', function(){
                     //  socket.emit('');
                     //})
                     console.log('connected');
 
-                    let plyrEl = document.querySelector('#player');
-                    let pos = plyrEl.components.position;
-                    let rot = plyrEl.components.rotation;
+                    let plyrEl = document.querySelector('#playercam');
+                    let pos = plyrEl.getAttribute('position');
+                    let rot = plyrEl.getAttribute('rotation');
+                    otherPlayers = Array.from(document.querySelectorAll('[otherplayer]'));
                     socket.emit('Set_Player', socket.id, pos, rot);
+                    socket.emit('Player_Update', socket.id, pos, rot);
+                });
+
+                socket.on('Sync_Players',(Players)=>{
+                    Players.forEach(p => {
+                        if(otherPlayers.includes(function(element){
+                        if(element.components.getID == p.id){
+                            return true;
+                        }
+                    })==false){
+                        createPlayer(p.id);
+                    }else{
+                        console.log('player already exists with that id');
+                    }
+                    });
                 });
 
                 socket.on('Sync_Closet',(isOpen)=>{
@@ -56,12 +111,79 @@
                         pad.syncDoor();
                     }
                 });
-                socket.on('Update_Players',(Players)=>{
-                    Players.forEach(Player, plyr => {
-                        console.log(plyr);
+                socket.on('Create_Player',(id)=>{
+
+                    if(otherPlayers.includes(function(element){
+                        if(element.components.getID == id){
+                            return true;
+                        }
+                    })==false){
+                        createPlayer(id);
+                    }else{
+                        console.log('player already exists with that id');
+                    }
+                    
+                });
+
+                socket.on('Delete_Player',(id)=>{
+                    //player object with id needs to be deleted
+                    let indx = otherPlayers.findIndex( function(element){
+                    if(element.id == socket.id){
+                        return element;
+                    }else{
+                        return -1;
+                    }
+                    });
+                    let temp = otherPlayers[indx];
+                    otherPlayers.splice(indx);
+                    let master = document.querySelector('#player_master');
+                    master.removeChild(temp);
+
+                    
+                })
+                socket.on('up',(id, pos, rot)=>{  
+                    console.log('playerupdate started');
+                    if(otherPlayers.includes(function(element){
+                        if(element.components.getID == id){
+                            return true;
+                        }
+                    })==false){
+                        createPlayer(id);
+                    }
+
+                    let pElement = otherPlayers.find(function(element){
+                        if(element.components.getID == id){
+                            return true;
+                        }
                     });
 
-                })
+                    g
+                    pElement.setAttribute('position', {
+                        x: pos.x,
+                        y: pos.y,
+                        z: pos.z
+                    }
+                    );
+
+                    pElement.setAttribute('rotation', rot);
+
+                    console.log(otherPlayers);
+                });
+                            
+                uptick = setInterval(function(){
+                    //console.log('uptick');
+                    let plyrEl = document.querySelector('#playercam');
+                    let pos = plyrEl.getAttribute('position');
+                    //console.log(pos);
+                    let rot = plyrEl.getAttribute('rotation');
+                    //console.log(rot);
+                   // console.log(pos, rot);
+                    //socket.emit('up', {id: socket.id, pos: {
+                      //  x: pos.x, y: pos.y,z: pos.z}, rot: {x: rot.x, y: rot.y, z: rot.z}
+                    //});
+                    socket.emit('up', socket.id, pos, rot);
+                }, 33)
+                
                 
 
             </script>
@@ -94,13 +216,14 @@
 
                
                 
-                <a-entity id="playercam" kinematic-body="radius: 0.3" movement-controls position="0 0 1" >
+                <a-entity id="playercam" kinematic-body="radius: 0.3" movement-controls position="0 0 1" userplayer>
                     <a-entity camera position="0 1.6 0" look-controls></a-entity>
                     <a-cylinder id="player" height="2" radius="0.3" color="green" position="0 1 0" rotation="0 0 0"></a-cylinder>
                   </a-entity>
                     <a-entity cursor="rayOrigin:mouse;" raycaster="far:10; interval:200; objects:.interactive"></a-entity>
                 <a-entity   id="monitor_model" position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33" gltf-model="#monitor_model"></a-entity>
-                
+                <a-entity id="player_master" position>
+                </a-entity>
                 <!--Everything in the inaccessible room should be a child of Far_Room_entity.-->
                 <a-entity id="Far_Room_Entity" position="10 0 0"> 
                     

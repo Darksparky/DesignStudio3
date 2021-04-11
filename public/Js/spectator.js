@@ -12,20 +12,20 @@ AFRAME.registerComponent('spectator',{
             },
             'init': function() {
                      var targetEl = document.querySelector(this.data.canvas);
-                   this.counter = 0;
-                   this.renderer = new THREE.WebGLRenderer( { antialias: true } );
-                   this.renderer.setPixelRatio( window.devicePixelRatio );
-                   this.renderer.setSize( targetEl.offsetWidth, targetEl.offsetHeight );
+                     this.counter = 0;
+                     this.renderer = new THREE.WebGLRenderer( { antialias: true } );
+                     this.renderer.setPixelRatio( window.devicePixelRatio );
+                     this.renderer.setSize( targetEl.offsetWidth, targetEl.offsetHeight );
                    // creates spectator canvas
                      targetEl.appendChild(this.renderer.domElement);
-         this.renderer.domElement.id = "canvas";
-         this.renderer.domElement.crossorigin="anonymous"
-                   this.renderer.domElement.height=360; 
-                   this.renderer.domElement.width=640;
+                     this.renderer.domElement.id = "canvas";
+                     this.renderer.domElement.crossorigin="anonymous"
+                     this.renderer.domElement.height=360; 
+                     this.renderer.domElement.width=640;
                      this.el.removeAttribute('look-controls');
                      this.el.removeAttribute('wasd-controls');
-                   console.log(this.renderer.domElement);
-                   console.log(document.querySelector('a-scene'))
+                     console.log(this.renderer.domElement);
+                     console.log(document.querySelector('a-scene'))
             },
             'tick': function(time, timeDelta) {
                    var loopFPS = 1000.0 / timeDelta;
