@@ -44,31 +44,32 @@
                     };
                 }
                 function createPlayer(id){
-                    let newPlayer = document.createElement("a-entity");
-                            newPlayer.setAttribute('otherplayer', id)
-                            const manager = document.querySelector('#player_master');
-                            manager.appendChild(newPlayer);
-                            let newBody = document.createElement("a-cylinder");
-                            newBody.setAttribute('height', 2);
-                            newBody.setAttribute('radius', 0.3);
-                            newBody.setAttribute('color', 'green');
-                            newBody.setAttribute('position', '0 1 0');
-                            newPlayer.appendChild(newBody);
-                            otherPlayers.push(newPlayer);
-                            console.log('newplayer created');
+                    
+                    if(id != null){
+                        if(id != socket.id){
+                            let tempArray = Array.from(document.querySelectorAll('otherplayer'));
+                            if(tempArray.some(e => e.getAttribute('otherplayer') == id)==false){
+
+                                let newPlayer = document.createElement("a-entity");
+                                newPlayer.setAttribute('otherplayer', id)
+                                const manager = document.querySelector('#player_master');
+                                manager.appendChild(newPlayer);
+                                let newBody = document.createElement("a-cylinder");
+                                newBody.setAttribute('height', 2);
+                                newBody.setAttribute('radius', 0.3);
+                                newBody.setAttribute('color', 'green');
+                                newBody.setAttribute('position', '0 1 0');
+                                newPlayer.appendChild(newBody);
+                                if(otherPlayers.some(e => e.getAttribute('otherplayer') == id)==false){
+                                    otherPlayers.push(newPlayer);
+                                }
+                                console.log('newplayer created');
+                            }
+                        }
+                    }
+                    
                 }
                 
-                function checkForExistingOtherPlayer(playerList){
-                    if(playerList.includes(function(element){
-                        if(element.components.getID == id){
-                            return true;
-                        }
-                    })==false){
-                        createPlayer(id);
-                    }else{
-                        console.log('player already exists with that id');
-                    }
-                }
                 socket.on('connect', (data)=>{
                     //document.querySelector().addEventListener('', function(){
                     //  socket.emit('');
@@ -78,24 +79,23 @@
                     let plyrEl = document.querySelector('#playercam');
                     let pos = plyrEl.getAttribute('position');
                     let rot = plyrEl.getAttribute('rotation');
-                    otherPlayers = Array.from(document.querySelectorAll('[otherplayer]'));
                     socket.emit('Set_Player', socket.id, pos, rot);
-                    socket.emit('Player_Update', socket.id, pos, rot);
+                    //socket.emit('Player_Update', socket.id, pos, rot);
                 });
 
-                socket.on('Sync_Players',(Players)=>{
-                    Players.forEach(p => {
-                        if(otherPlayers.includes(function(element){
-                        if(element.components.getID == p.id){
-                            return true;
-                        }
-                    })==false){
-                        createPlayer(p.id);
-                    }else{
-                        console.log('player already exists with that id');
-                    }
-                    });
-                });
+                // socket.on('Sync_Players',(Players)=>{
+                //     Players.forEach(p => {
+                //         if(otherPlayers.includes(function(element){
+                //         if(element.components.getID == p.id){
+                //             return true;
+                //         }
+                //     })==false){
+                //         createPlayer(p.id);
+                //     }else{
+                //         console.log('player already exists with that id');
+                //     }
+                //     });
+                // });
 
                 socket.on('Sync_Closet',(isOpen)=>{
                     console.log('Recieved Sync_Closet');
@@ -112,75 +112,47 @@
                     }
                 });
                 socket.on('Create_Player',(id)=>{
-
-                    if(otherPlayers.includes(function(element){
-                        if(element.components.getID == id){
-                            return true;
-                        }
-                    })==false){
+                    //if(otherPlayers.find(e => e.getAttribute('otherplayer') == id)==undefined){
+                    //    createPlayer(id);
+                    //}
+                    if(otherPlayers.some(e => e.getAttribute('otherplayer') == id)==false){
                         createPlayer(id);
-                    }else{
-                        console.log('player already exists with that id');
-                    }
-                    
+                    } 
                 });
 
                 socket.on('Delete_Player',(id)=>{
                     //player object with id needs to be deleted
-                    let indx = otherPlayers.findIndex( function(element){
-                    if(element.id == socket.id){
-                        return element;
-                    }else{
-                        return -1;
-                    }
-                    });
-                    let temp = otherPlayers[indx];
-                    otherPlayers.splice(indx);
+                    console.log('delete player called');
+                    let temp = otherPlayers.find(e => e.getAttribute('otherplayer') == id);
+                    let indx = otherPlayers.findIndex(temp);
+                    otherPlayers.splice(indx, 1);
                     let master = document.querySelector('#player_master');
                     master.removeChild(temp);
 
-                    
-                })
-                socket.on('up',(id, pos, rot)=>{  
+                });
+                socket.on('Player_Update',(id, pos, rot)=>{  
                     console.log('playerupdate started');
-                    if(otherPlayers.includes(function(element){
-                        if(element.components.getID == id){
-                            return true;
-                        }
-                    })==false){
+        
+                    if(otherPlayers.some(e => e.getAttribute('otherplayer') == id)==false){
                         createPlayer(id);
                     }
 
-                    let pElement = otherPlayers.find(function(element){
-                        if(element.components.getID == id){
-                            return true;
-                        }
-                    });
-
-                    g
-                    pElement.setAttribute('position', {
-                        x: pos.x,
-                        y: pos.y,
-                        z: pos.z
-                    }
-                    );
-
-                    pElement.setAttribute('rotation', rot);
-
+                   let pEl = otherPlayers.find(e => e.getAttribute('otherplayer') == id);
+                    if(pEl!= undefined){
+                        
+                    // otherPlayers[indx].setAttribute('position', pos);
+                    // otherPlayers[indx].setAttribute('rotation', rot);
+                        pEl.setAttribute('position', pos);
+                        pEl.setAttribute('rotation', rot);
+                    }   
+                   
                     console.log(otherPlayers);
                 });
                             
                 uptick = setInterval(function(){
-                    //console.log('uptick');
                     let plyrEl = document.querySelector('#playercam');
                     let pos = plyrEl.getAttribute('position');
-                    //console.log(pos);
                     let rot = plyrEl.getAttribute('rotation');
-                    //console.log(rot);
-                   // console.log(pos, rot);
-                    //socket.emit('up', {id: socket.id, pos: {
-                      //  x: pos.x, y: pos.y,z: pos.z}, rot: {x: rot.x, y: rot.y, z: rot.z}
-                    //});
                     socket.emit('up', socket.id, pos, rot);
                 }, 33)
                 

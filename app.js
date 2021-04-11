@@ -60,10 +60,10 @@ io.on('connection', (socket)=>{
                 return -1;
             }
         });
-        Players.splice(indx);
+        Players.splice(indx, 1);
         console.log(socket.id + ' is disconnected');
         console.log(Players);
-        socket.broadcast.emit('Delete_Player', socket.id);
+        io.emit('Delete_Player', socket.id);
     });
     socket.broadcast.emit('Create_Player', socket.id);
 
@@ -84,20 +84,15 @@ io.on('connection', (socket)=>{
     });
     
     socket.on('Set_Player', (id, pos, rot) =>{
-        
-        let indx = Players.findIndex( function(element){
-            if(element.id == id){
-                return element;
-            }else{
-                return -1;
-            }
-        });
-        if(pos){
-            Players[indx].pos = pos; 
-         }
-         if(rot){
-             Players[indx].rot = rot;
-         }
+        let pEl = Players.find(e => e.id == id);
+                    if(pEl!= undefined){
+                        
+                    // otherPlayers[indx].setAttribute('position', pos);
+                    // otherPlayers[indx].setAttribute('rotation', rot);
+                        pEl.pos = pos;
+                        pEl.rot = rot;
+                    }   
+                   
         console.log(Players);
         io.emit('Sync_Players', Players);
     });
@@ -143,21 +138,25 @@ io.on('connection', (socket)=>{
     }, 10000);*/
 
    socket.on('up',((id, pos, rot)=>{
-        //console.log('server recognizes that a player has emitted player update');
-        let indx = Players.findIndex( function(element){
-            if(element.id == id){
-                return element;
-            }else{
-                return -1;
+        console.log('server recognizes that a player has emitted player update');
+        pEl = Players.find(e => e.id == id);
+        console.log('pEl = ' + pEl);
+        /*
+        if(Players[indx] != undefined){
+            if(pos!= undefined){
+                Players[indx].pos = pos;
             }
-        });
-        Players[indx].pos.x = pos.x;
-        Players[indx].pos.y = pos.y;
-        Players[indx].pos.z = pos.z;
-        Players[indx].rot.x = rot.x;
-        Players[indx].rot.y = rot.y;
-        Players[indx].rot.z = rot.z;
+            if(rot!= undefined){
+                Players[indx].rot = rot; 
+            }
+        }
+        */
+        if(pEl != undefined){
+            pEl.pos = pos;
+            pEl.rot = rot;
+        }
         console.log(Players);
+        io.emit('Player_Update', id, pos, rot);
     
 
 }));
