@@ -80,22 +80,8 @@
                     let pos = plyrEl.getAttribute('position');
                     let rot = plyrEl.getAttribute('rotation');
                     socket.emit('Set_Player', socket.id, pos, rot);
-                    //socket.emit('Player_Update', socket.id, pos, rot);
                 });
 
-                // socket.on('Sync_Players',(Players)=>{
-                //     Players.forEach(p => {
-                //         if(otherPlayers.includes(function(element){
-                //         if(element.components.getID == p.id){
-                //             return true;
-                //         }
-                //     })==false){
-                //         createPlayer(p.id);
-                //     }else{
-                //         console.log('player already exists with that id');
-                //     }
-                //     });
-                // });
 
                 socket.on('Sync_Closet',(isOpen)=>{
                     console.log('Recieved Sync_Closet');
