@@ -93,7 +93,7 @@ io.on('connection', (socket)=>{
                         pEl.rot = rot;
                     }   
                    
-        console.log(Players);
+        //console.log(Players);
         io.emit('Sync_Players', Players);
     });
 /*
@@ -138,9 +138,9 @@ io.on('connection', (socket)=>{
     }, 10000);*/
 
    socket.on('up',((id, pos, rot)=>{
-        console.log('server recognizes that a player has emitted player update');
+        //console.log('server recognizes that a player has emitted player update');
         pEl = Players.find(e => e.id == id);
-        console.log('pEl = ' + pEl);
+        //console.log('pEl = ' + pEl);
         /*
         if(Players[indx] != undefined){
             if(pos!= undefined){
@@ -155,7 +155,7 @@ io.on('connection', (socket)=>{
             pEl.pos = pos;
             pEl.rot = rot;
         }
-        console.log(Players);
+        //console.log(Players);
         io.emit('Player_Update', id, pos, rot);
     
 
