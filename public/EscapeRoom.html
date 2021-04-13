@@ -47,7 +47,7 @@
                     
                     if(id != null){
                         if(id != socket.id){
-                            let tempArray = Array.from(document.querySelectorAll('otherplayer'));
+                            let tempArray = Array.from(document.querySelectorAll('[otherplayer]'));
                             if(tempArray.some(e => e.getAttribute('otherplayer') == id)==false){
 
                                 let newPlayer = document.createElement("a-entity");
@@ -82,7 +82,15 @@
                     socket.emit('Set_Player', socket.id, pos, rot);
                 });
 
+                socket.on('disconnect', (data)=>{
 
+                    let master = document.querySelector('#player_master');
+                    Array.from(document.querySelectorAll('[otherplayer]')).forEach(element => {
+                        let indx = otherPlayers.findIndex(element);
+                        otherPlayers.splice(indx,1);
+                        master.removeChild(element); 
+                    });                    
+                });
                 socket.on('Sync_Closet',(isOpen)=>{
                     console.log('Recieved Sync_Closet');
                     let pad = document.querySelector('#Closet_Lock').components.padlock;
