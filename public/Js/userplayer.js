@@ -9,6 +9,10 @@ AFRAME.registerComponent('userplayer', {
             x: 0,
             y: 0,
             z: 0,
+        },
+        socket: {
+            type: 'string',
+            default: ''
         }
     },
 

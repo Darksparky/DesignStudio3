@@ -96,61 +96,11 @@ io.on('connection', (socket)=>{
         //console.log(Players);
         io.emit('Sync_Players', Players);
     });
-/*
-    socket.on('Player_Update', (id, pos, rot)=>{
-        let indx = Players.findIndex( function(element){
-            if(element.id == id){
-                return element;
-            }else{
-                return -1;
-            }
-        });
-        if(Players[indx]!= undefined && indx != -1){
-            if(pos){
-            Players[indx].pos = pos; 
-            }
-            if(rot){
-            Players[indx].rot = rot;
-            }
-        } else {
-            console.log('player[indx] is undefined');
-        }
-      
-        
-        
-       
-    });
-    */
-    /*var Consoltick = setInterval(function(){
-    
-    if(Players[0]){
-        console.log('player 1 id: ' + Players[0].id);
-        console.log('player 1 pos: ' + Players[0].pos);
-        console.log('player 1 rot: ' + Players[0].rot);
-    }
-    if(Players[1]){
-        console.log('player 2 id: ' + Players[1].id);
-        console.log('player 2 pos: ' + Players[1].pos);
-        console.log('player 2 rot: ' + Players[1].rot);
-    }
-    
-    
-    }, 10000);*/
 
    socket.on('up',((id, pos, rot)=>{
-        //console.log('server recognizes that a player has emitted player update');
+
         pEl = Players.find(e => e.id == id);
-        //console.log('pEl = ' + pEl);
-        /*
-        if(Players[indx] != undefined){
-            if(pos!= undefined){
-                Players[indx].pos = pos;
-            }
-            if(rot!= undefined){
-                Players[indx].rot = rot; 
-            }
-        }
-        */
+   
         if(pEl != undefined){
             pEl.pos = pos;
             pEl.rot = rot;

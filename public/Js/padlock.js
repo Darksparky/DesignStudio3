@@ -29,9 +29,8 @@ AFRAME.registerComponent('padlock',{
         padID: {
             type: 'string',
             default: ''
-        }
+        },
         
-
     },
 
     init: function(){
@@ -39,10 +38,7 @@ AFRAME.registerComponent('padlock',{
         var CONTEXT_AF = this;
         
         //ent used to be click
-        this.el.addEventListener('ent', function(){
-           // this.openDoor();
-            CONTEXT_AF.checkPassword();
-        })
+        
         this.el.addEventListener('del', function(){
             CONTEXT_AF.data.input = '----';
             CONTEXT_AF.updateDisplayText();
@@ -60,14 +56,14 @@ AFRAME.registerComponent('padlock',{
     },
     
 
-    checkPassword: function(){
+    checkPassword: function(socket){
         if(this.data.password === this.data.input){
             if(this.data.isLocked == true){
                 this.data.isLocked = false;
                 //reset input
                 
                 this.updateDisplayText();
-                this.openDoor();
+                this.openDoor(socket);
             }else{
                 this.data.isLocked = true;
                 //reset input
@@ -80,8 +76,8 @@ AFRAME.registerComponent('padlock',{
 
     },
 
-    openDoor: function(){
-        let socket = io();
+    openDoor: function(socket){
+        
       //create open event to open door\
         let doorEL = document.querySelector(this.data.door);
         
