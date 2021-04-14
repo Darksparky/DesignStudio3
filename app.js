@@ -30,7 +30,7 @@ class Player {
 }
 
 var Players = [];
-
+var Rooms = [];
 var exitIsOpen = false;
 var closetIsOpen = false;
 var computerIsLocked = true;

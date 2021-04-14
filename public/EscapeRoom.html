@@ -12,21 +12,28 @@
             <script src="Js/enterkey.js"></script>
             <script src="Js/deletekey.js"></script>
             <script src="Js/userplayer.js"></script>
-            <script src="Js/thumbsticklogging.js"></script>
             <script src="Js/scenecontroller.js"></script>
+        
             <!--Links Physics System by Don McCurdy and 17 other contributors...It is free to use commercially under the MIT License -->
             <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v3.3.0/dist/aframe-physics-system.min.js"></script>
             <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
             <script src="https://unpkg.com/super-hands@^3.0.1/dist/super-hands.min.js"></script>
             <!--Links Ammo physics driver part of the afformentioned system, based on bullet (bulletphysics.org) which is also free to use for any purpose-->
             <script src="/socket.io/socket.io.js"></script>
+
+            <style>
+                .a-loader-title{
+                    color: red;
+                 }
+
+            </style>
         </head>
         
         <body>
             <script>
                 //require('aframe');
                
-                //const superhands = require('super-hands');
+                              //const superhands = require('super-hands');
                 let socket = io();
                 var otherPlayers = [];
                 class Player {
@@ -138,11 +145,12 @@
                     //player object with id needs to be deleted
                     console.log('delete player called');
                     let temp = otherPlayers.find(e => e.getAttribute('otherplayer') == id);
-                    let indx = otherPlayers.findIndex(temp);
+                    if(temp!=undefined && temp != null){
+                        let indx = otherPlayers.findIndex(e=> e = temp);
                     otherPlayers.splice(indx, 1);
                     let master = document.querySelector('#player_master');
                     master.removeChild(temp);
-
+                    }
                 });
                 socket.on('Player_Update',(id, pos, rot)=>{  
                     //console.log('playerupdate started');
@@ -173,7 +181,7 @@
                 
             </script>
 
-            <a-scene scenecontroller physics="debug: false; gravity: 0">
+            <a-scene scenecontroller physics="debug: false; gravity: 0" loading-screen="dotsColor: red; backgroundColor: black">
                 <a-assets timeout="50000">
                     <a-asset-item id="room_model"   response-type="arraybuffer" src="/assets/Room.glb"  ></a-asset-item>
                     <a-asset-item id="monitor_model" response-type="arraybuffer" src="/assets/Monitor.glb"></a-asset-item>
@@ -203,11 +211,7 @@
                 <a-entity id="playercam" kinematic-body="radius: 0.3" movement-controls  position="0 0 1" userplayer>
                     <a-entity id="camera" camera position="0 1.6 0" look-controls></a-entity> 
                 </a-entity>
-                <!-- <a-entity id="playercam" kinematic-body="radius: 0.3" movement-controls  position="0 0 1" userplayer>
-                    <a-entity camera position="0 1.6 0" look-controls></a-entity> 
-                    <a-cylinder id="player" height="2" radius="0.3" color="green" position="0 1 0" rotation="0 0 0"></a-cylinder>
-                    <a-cylinder id="player" height="2" radius="0.3" color="green" position="0 1 0" rotation="0 0 0"></a-cylinder>
-                </a-entity> -->
+               
                     <a-entity cursor="rayOrigin:mouse;" raycaster="far:10; interval:200; objects:.interactive"></a-entity>
                 <a-entity id="monitor_model" position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33" gltf-model="#monitor_model"></a-entity>
                 <a-entity id="player_master" position>

@@ -9,7 +9,11 @@ AFRAME.registerComponent('scenecontroller', {
         let sceneEl = CONTEXT_AF.el;
         let cameraEl = document.querySelector('#camera');
         
-
+        let setUpMobile = function(){
+            console.log('setUpMobile');
+            playerEl.removeAttribute('movement-controls');
+            playerEl.setAttribute('look-controls');
+        }
         let setUpVR = function(){
             console.log('setupVr');
             let leftHand = document.createElement("a-entity");
@@ -21,12 +25,12 @@ AFRAME.registerComponent('scenecontroller', {
             leftHand.setAttribute('sphere-collider','objects: a-box');
             //leftHand.setAttribute('super-hands');
             leftHand.setAttribute('hand-controls','hand: left');
-            leftHand.setAttribute('oculus-touch-controls','hand: left; orientationOffset: 90 0 0');
+            //leftHand.setAttribute('valve-index-controls','hand: left;');
             leftHand.setAttribute('laser-controls');
             //leftHand.setAttribute('thumbsticklogging');
             rightHand.setAttribute('sphere-collider','objects: a-box');
             //rightHand.setAttribute('super-hands');
-            rightHand.setAttribute('oculus-touch-controls','hand: right; orientationOffset: 90 0 0');
+            //rightHand.setAttribute('valve-index-controls','hand: right;');
             rightHand.setAttribute('hand-controls','hand: right');
             rightHand.setAttribute('laser-controls');
             //rightHand.setAttribute('thumbsticklogging');
@@ -35,6 +39,10 @@ AFRAME.registerComponent('scenecontroller', {
             playerEl.appendChild(rightHand);
             playerEl.removeAttribute('movement-controls');
             //cameraEl.removeAttribute('look-controls');
+        }
+
+        if( AFRAME.utils.device.isMobile()){
+            setUpMobile();
         }
 
         if(sceneEl.is('vr-mode')){
