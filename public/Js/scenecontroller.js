@@ -13,6 +13,17 @@ AFRAME.registerComponent('scenecontroller', {
             console.log('setUpMobile');
             playerEl.removeAttribute('movement-controls');
             playerEl.setAttribute('look-controls');
+            let button = document.createElement("a-circle");
+            button.setAttribute('id','mobileButton');
+            button.setAttribute('overlay');
+            button.setAttribute('position', '-0.2 -0.2 -0.1');
+            button.setAttribute('rotation','0 0 0');
+            button.setAttribute('radius', 0.08);
+            button.setAttribute('color', '#00FFFF');
+            button.setAttribute('shadow', 'receive: false; castShadow: false;');
+            button.setAttribute('mobile-controls', 'mobileButton: #mobileButton;');
+            button.setAttribute('class','interactive');
+            cameraEl.appendChild(button);
         }
         let setUpVR = function(){
             console.log('setupVr');
@@ -23,18 +34,11 @@ AFRAME.registerComponent('scenecontroller', {
             leftHand.setAttribute('tracked-controls');
             rightHand.setAttribute('tracked-controls');
             leftHand.setAttribute('sphere-collider','objects: a-box');
-            //leftHand.setAttribute('super-hands');
             leftHand.setAttribute('hand-controls','hand: left');
-            //leftHand.setAttribute('valve-index-controls','hand: left;');
             leftHand.setAttribute('laser-controls');
-            //leftHand.setAttribute('thumbsticklogging');
             rightHand.setAttribute('sphere-collider','objects: a-box');
-            //rightHand.setAttribute('super-hands');
-            //rightHand.setAttribute('valve-index-controls','hand: right;');
             rightHand.setAttribute('hand-controls','hand: right');
             rightHand.setAttribute('laser-controls');
-            //rightHand.setAttribute('thumbsticklogging');
-            
             playerEl.appendChild(leftHand);
             playerEl.appendChild(rightHand);
             playerEl.removeAttribute('movement-controls');
