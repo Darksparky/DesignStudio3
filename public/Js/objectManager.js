@@ -1,9 +1,10 @@
-AFRAME.registerComponent('objectManager', {
+AFRAME.registerComponent('objectmanager', {
     schema: {
         isHolding: {type:'boolean', default: false},
         defaultParent: {type: 'asset'},
         defaultPosition: {type: 'vec3'},
         focus: {type: 'asset'}
+
     },
     
     
@@ -69,10 +70,20 @@ AFRAME.registerComponent('objectManager', {
 
         
 
-    }    
+    },    
 
 
+    updateFocus: function(socket){
 
+        let focus = this.data.focus;
+        //send socket info to 
+        if(focus != undefined && focus != null){
+
+            let pos = focus.getAttribute('position');
+            let rot = focus.getAttribute('rotation');
+            socket.emit('objectUpdate', socket.id, pos, rot);
+        }
+    }
 
 
 
