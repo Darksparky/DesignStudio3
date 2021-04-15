@@ -82,7 +82,9 @@ io.on('connection', (socket)=>{
         }
        
     });
-    
+    socket.on('Update_Object', (id, pos, rot, objectID)=>{
+        socket.broadcast.emit('Sync_Object', id, pos, rot,objectID);
+    }); 
     socket.on('Set_Player', (id, pos, rot) =>{
         let pEl = Players.find(e => e.id == id);
                     if(pEl!= undefined){

@@ -81,7 +81,8 @@ AFRAME.registerComponent('objectmanager', {
 
             let pos = focus.getAttribute('position');
             let rot = focus.getAttribute('rotation');
-            socket.emit('objectUpdate', socket.id, pos, rot);
+            focusID = focus.getAttribute('id');
+            socket.emit('Object_Update', socket.id, pos, rot, focusID);
         }
     }
 

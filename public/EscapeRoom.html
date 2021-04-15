@@ -13,7 +13,9 @@
             <script src="Js/deletekey.js"></script>
             <script src="Js/userplayer.js"></script>
             <script src="Js/scenecontroller.js"></script>
-            <script src="Js/overlay.js"></script>
+            <script src="Js/computer.js\"></script>
+            <script src="Js/interactable.js"></script>
+            <script src="Js/objectmanager.js"></script>
             <!--Links Physics System by Don McCurdy and 17 other contributors...It is free to use commercially under the MIT License -->
             <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v3.3.0/dist/aframe-physics-system.min.js"></script>
             <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
@@ -43,6 +45,12 @@
                     position: fixed;
                     bottom: 5%;
                     align-items: center;
+                }
+                #left-rotate-button{
+                    display: none;
+                }
+                #right-rotate-button{
+                    display: none;
                 }
             </style>
         </head>
@@ -188,22 +196,60 @@
                    
                     //console.log(otherPlayers);
                 });
+                
+                socket.on('Sync_Object',(id, pos, rot, objectID)=>{
+                    if(socket.id != id){
+                        // if this doesn't work go throught all the objects with the interactable type till find matching id
+                        let objectToChange = document.querySelector(objectID);
+
+                        if(objectToChange==undefined){
+                            console.log('objectToChange = undefined');
+                        } else if(objectToChange == null){
+                            console.log('objectToChange = null');
+                        }
+
+                        if(pos!=null && pos!=undefined){
+                           objectToChange.setAttribute('position', pos); 
+                        } else {
                             
+                            if(pos==undefined){
+                                console.log('pos = undefined');
+                            } else if(pos == null){
+                                console.log('pos = null');
+                            }
+                            
+                        }
+
+                        if(rot!=null && rot!=undefined){
+                           objectToChange.setAttribute('rotation', rot); 
+                        } else {
+
+                            if(rot==undefined){
+                                console.log('rot = undefined');
+                            } else if(rot == null){
+                                console.log('rot = null');
+                            }
+                        }
+                        
+                        
+                    }else{
+                        console.log('getting a sync object socket from myself');
+                    }
+
+                });
+                
                 uptick = setInterval(function(){
                     let plyrEl = document.querySelector('#playercam');
                     let pos = plyrEl.getAttribute('position');
                     let rot = plyrEl.getAttribute('rotation');
                     socket.emit('up', socket.id, pos, rot);
+                    let cam = document.querySelector('#camera');
+                    cam.components.objectmanager.updateFocus(socket);
                 }, 33)
                 
                 
             </script>
-            <div id="user-interface">
-                <div id="ui-holding-box"> 
-                    <button id="left-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateLeft()">Rotate Left</button>
-                    <button id="right-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateRight()">Rotate Right</button>
-                </div>
-            </div>
+            
             <a-scene scenecontroller physics="debug: false; gravity: 0" loading-screen="dotsColor: red; backgroundColor: black">
                 <a-assets timeout="50000">
                     <a-asset-item id="room_model"   response-type="arraybuffer" src="/assets/Room.glb"  ></a-asset-item>
@@ -432,6 +478,14 @@
             </a-scene>
             <div style="height: 360px; width: 640px;" id="securitycamDiv"></div>
             <div id="mobileOverlay" class="mobileHud"></div>
+            
+            <div id="user-interface">
+                <div id="ui-holding-box"> 
+                    <button id="left-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateLeft()">Rotate Left</button>
+                    <button id="right-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateRight()">Rotate Right</button>
+                </div>
+            </div>
+            
             <div id="computerOverlay"></div>
         </body>
 </html>
