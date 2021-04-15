@@ -1,0 +1,107 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+header
+{
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.3)),url(background.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.main-nav
+{
+    float: right; 
+    list-style: none;
+    margin-top: 40px;
+
+}
+
+.main-nav li
+{
+    display: inline-block;
+}
+
+.main-nav li a 
+{
+    color: white;
+    text-decoration: none;
+    padding: 5px 20px;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+}
+
+.main-nav li.active a
+{
+    border: 1px solid white;
+} 
+
+.main-nav li a:hover
+{
+    border: 1px solid white;
+}
+
+/* insert logo after completed*/
+
+body
+{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.row
+{
+    max-width: 1500px;
+    margin: auto;
+
+}
+
+.hero 
+{
+    position: absolute;
+    width: 1500px;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+h1
+{
+    color: white;
+    text-transform: uppercase;
+    font-size: 70px;
+    text-align: center;
+    margin-top: 435px;
+    margin-left: 330px;
+}
+
+
+.button
+{
+    margin-top: 100px;
+    margin-left: 870px;
+}
+
+.btn
+{
+    border: 1px solid white; 
+    padding: 10px 30px; 
+    color: white; 
+    text-decoration: none;
+    margin-right: 5px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.b1
+{
+    font-family: "Roboto", sans-serif;
+    background-color: teal;
+}
+
+.b1:hover
+{
+    background-color: 	#A9A9A9;
+    transition: all 0.5s ease-in;
+}
