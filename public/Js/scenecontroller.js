@@ -13,17 +13,35 @@ AFRAME.registerComponent('scenecontroller', {
             console.log('setUpMobile');
             playerEl.removeAttribute('movement-controls');
             playerEl.setAttribute('look-controls');
-            let button = document.createElement("a-circle");
-            button.setAttribute('id','mobileButton');
-            button.setAttribute('overlay');
-            button.setAttribute('position', '-0.2 -0.2 -0.1');
-            button.setAttribute('rotation','0 0 0');
-            button.setAttribute('radius', 0.08);
-            button.setAttribute('color', '#00FFFF');
-            button.setAttribute('shadow', 'receive: false; castShadow: false;');
-            button.setAttribute('mobile-controls', 'mobileButton: #mobileButton;');
-            button.setAttribute('class','interactive');
-            cameraEl.appendChild(button);
+            // let button = document.createElement("a-circle");
+            // button.setAttribute('id','mobileButton');
+            // button.setAttribute('overlay');
+            // button.setAttribute('position', '-0.05 -0.05 -0.5');
+            // button.setAttribute('rotation','0 0 0');
+            // button.setAttribute('radius', 0.04);
+            // button.setAttribute('color', '#00FFFF');
+            // button.setAttribute('shadow', 'receive: false; castShadow: false;');
+            // button.setAttribute('mobile-controls', 'mobileButton: #mobileButton;');
+            // button.setAttribute('class','interactive');
+            //cameraEl.appendChild(button);
+            let forwardButton = document.createElement('button');
+            let backwardButton = document.createElement('button');
+            forwardButton.setAttribute('id', 'fowardButton');
+            backwardButton.setAttribute('id', 'backwardButton');
+            forwardButton.addEventListener('click', function(){
+                console.log('forward button clicked');
+                var angle = cameraEl.getAttribute("rotation")
+                var x = 1 * Math.cos(angle.y * Math.PI / 180)
+                var y = 1 * Math.sin(angle.y * Math.PI / 180)
+                var pos = playerEl.getAttribute("position")
+                pos.x -= y;
+                pos.z -= x;
+                playerEl.setAttribute("position", pos)
+            })
+            backwardButton.addEventListener('click', function(){
+                console.log('backward button clicked');
+            })
+            
         }
         let setUpVR = function(){
             console.log('setupVr');
