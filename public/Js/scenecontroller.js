@@ -1,6 +1,12 @@
 AFRAME.registerComponent('scenecontroller', {
     
     //; model: true; orientationOffset: x:90, y:0 z:0;
+    schema:{
+        moveActive:{
+            type: 'boolean',
+            default: true,
+        }
+    },
 
     init: function(){
         console.log('scenecontroller has started');
@@ -26,28 +32,34 @@ AFRAME.registerComponent('scenecontroller', {
            
         // I didn't have time to figure out how to get this to work while holding the button down but the way i have it, it works
         // provided you tap the button every time you want to move a bit
-           
+
             forwardButton.addEventListener('click', function(){
-                console.log('forward button clicked');
-                var angle = cameraEl.getAttribute("rotation")
-                var x = 1 * Math.cos(angle.y * Math.PI / 180)
-                var y = 1 * Math.sin(angle.y * Math.PI / 180)
-                var pos = playerEl.getAttribute("position")
-                pos.x -= y*0.3;
-                pos.z -= x*0.3;
-                playerEl.setAttribute("position", pos)
+                if(CONTEXT_AF.data.moveActive){
+                    console.log('forward button clicked');
+                    var angle = cameraEl.getAttribute("rotation");
+                    var x = 1 * Math.cos(angle.y * Math.PI / 180);
+                    var y = 1 * Math.sin(angle.y * Math.PI / 180);
+                    var pos = playerEl.getAttribute("position");
+                    pos.x -= y*0.3;
+                    pos.z -= x*0.3;
+                    playerEl.setAttribute("position", pos);
+                }
+                
 
 
             })
             backwardButton.addEventListener('click', function(){
-                console.log('backward button clicked');
-                var angle = cameraEl.getAttribute("rotation")
-                var x = 1 * Math.cos(angle.y * Math.PI / 180)
-                var y = 1 * Math.sin(angle.y * Math.PI / 180)
-                var pos = playerEl.getAttribute("position")
-                pos.x += y*0.3;
-                pos.z += x*0.3;
-                playerEl.setAttribute("position", pos)
+                if(CONTEXT_AF.data.moveActive){
+                    console.log('backward button clicked');
+                    var angle = cameraEl.getAttribute("rotation");
+                    var x = 1 * Math.cos(angle.y * Math.PI / 180);
+                    var y = 1 * Math.sin(angle.y * Math.PI / 180);
+                    var pos = playerEl.getAttribute("position");
+                    pos.x += y*0.3;
+                    pos.z += x*0.3;
+                    playerEl.setAttribute("position", pos);
+                }
+
             })
             mobileHud.appendChild(forwardButton);
             mobileHud.appendChild(backwardButton);
