@@ -10,6 +10,7 @@ AFRAME.registerComponent('securitycam', {
         }
     },
 
+
     init: function(){
         this.data.canvas = document.querySelector(this.data.canvas);
         var tvEl = this.data.canvas;
@@ -19,7 +20,7 @@ AFRAME.registerComponent('securitycam', {
         //might need to change this to set it as 16:9 because the TV is 16:9 in the room
         this.renderer.setPixelRatio(window.devicePixelRatio);
 
-        this.renderer.setSize(tvEl.offsetWidth, tvEl.offsetHeight);
+        this.renderer.setSize(1920, 1080);
         
         tvEl.appendChild(this.renderer.domElement);
         this.renderer.domElement.id="canvas";
@@ -49,7 +50,7 @@ AFRAME.registerComponent('securitycam', {
 
     render: function(){
         //will likely need to mess with this
-        this.renderer.render(this.el.object3D, this.el.object3DMap.camera);
+        this.renderer.render(this.el.object3D, this.el.getAttribute('camera'));
 
     }
 
