@@ -238,6 +238,9 @@
                 <a-entity id="player_master" position>
                 </a-entity>
                 <!--Everything in the inaccessible room should be a child of Far_Room_entity.-->
+
+                <a-entity id="Escape" geometry="primitive: plane" material="color: blue" position="-10 0 0" sound="src: /music/Escape.wav; autoplay: true; loop: true"></a-entity>
+
                 <a-entity id="Far_Room_Entity" position="10 0 0"> 
                     
                     <a-entity id="Security_Camera" camera position="0 1.6 -1" rotation="0 0 0" spectator="canvas:#securitycamDiv;" active="false"></a-entity>
@@ -359,11 +362,11 @@
                         <a-entity position="-0.5 -0.5 0" light="type:point; intensity:1; angle:40; penumbra:0.3; castShadow:false; shadowBias:-0.0007"></a-entity>
                     </a-entity>
                     <a-entity   id="Pinboard" position="0 0.75 2.495" rotation="0 0 0" gltf-model="#pinboard_model" shadow>
-                        <a-entity text="value:Grocery List; color:black; width:0.8; align:center;" position="0.5 1 -0.1" rotation="0 180 0"></a-entity>
+                        <!--a-entity text="value:Grocery List; color:black; width:0.8; align:center;" position="0.5 1 -0.1" rotation="0 180 0"></a-entity>
                         <a-entity text="value:3 Carrots; color:black; width:0.8; align:center;" position="0.498 0.943 -0.1" rotation="0 180 0"></a-entity>
                         <a-entity text="value:2 Onions; color:black; width:0.8; align:center;" position="0.5 0.893 -0.1" rotation="0 180 0"></a-entity>
                         <a-entity text="value:1 Bag of Rice; color:black; width:0.8; align:center;" position="0.469 0.845 -0.1" rotation="0 180 0"></a-entity>
-                        <a-entity text="value:1 Chicken; color:black; width:0.8; align:center;" position="0.498 0.798 -0.1" rotation="0 180 0"></a-entity>
+                        <a-entity text="value:1 Chicken; color:black; width:0.8; align:center;" position="0.498 0.798 -0.1" rotation="0 180 0"></a-entity-->
                     </a-entity>
                     <a-entity   id="TV" position="0 1 -2.49" rotation="0 0 0" scale="1.1 1.1 1.1" gltf-model="#tv_model" shadow>
                    
