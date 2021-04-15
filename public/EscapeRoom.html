@@ -30,6 +30,7 @@
                 .mobileHudButton{
                     border: none;
                     position: relative;
+                    margin: 2%;
                 }
                 .mobileHud{
                     position: fixed;
@@ -189,7 +190,7 @@
                 
                 
             </script>
-
+            <div id="mobileOverlay" class="mobileHud"></div>
             <a-scene scenecontroller physics="debug: false; gravity: 0" loading-screen="dotsColor: red; backgroundColor: black">
                 <a-assets timeout="50000">
                     <a-asset-item id="room_model"   response-type="arraybuffer" src="/assets/Room.glb"  ></a-asset-item>
@@ -414,6 +415,6 @@
 
             </a-scene>
             <div style="height: 360px; width: 640px;" id="securitycamDiv"></div>
-            <div id="mobileOverlay"></div>
+            
         </body>
 </html>

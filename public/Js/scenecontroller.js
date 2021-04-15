@@ -26,8 +26,11 @@ AFRAME.registerComponent('scenecontroller', {
             //cameraEl.appendChild(button);
             let forwardButton = document.createElement('button');
             let backwardButton = document.createElement('button');
+            let mobileHud = document.querySelector('#mobileOverlay');
             forwardButton.setAttribute('id', 'fowardButton');
+            forwardButton.setAttribute('class', 'mobileHudButton');
             backwardButton.setAttribute('id', 'backwardButton');
+            backwardButton.setAttribute('class', 'mobileHudButton');
             forwardButton.addEventListener('click', function(){
                 console.log('forward button clicked');
                 var angle = cameraEl.getAttribute("rotation")
@@ -41,7 +44,8 @@ AFRAME.registerComponent('scenecontroller', {
             backwardButton.addEventListener('click', function(){
                 console.log('backward button clicked');
             })
-            
+            mobileHud.appendChild(forwardButton);
+            mobileHud.appendChild(backwardButton);
         }
         let setUpVR = function(){
             console.log('setupVr');
