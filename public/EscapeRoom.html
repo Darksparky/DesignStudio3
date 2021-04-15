@@ -198,7 +198,12 @@
                 
                 
             </script>
-            
+            <div id="user-interface">
+                <div id="ui-holding-box"> 
+                    <button id="left-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateLeft()">Rotate Left</button>
+                    <button id="right-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateRight()">Rotate Right</button>
+                </div>
+            </div>
             <a-scene scenecontroller physics="debug: false; gravity: 0" loading-screen="dotsColor: red; backgroundColor: black">
                 <a-assets timeout="50000">
                     <a-asset-item id="room_model"   response-type="arraybuffer" src="/assets/Room.glb"  ></a-asset-item>
