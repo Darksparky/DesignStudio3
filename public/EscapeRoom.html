@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-        <head>
+<!-- PLEASE INSTALL XTERM VIA "npm install --save xterm" in the terminal -->
+<head>
             <title>Escape Room - A-Frame</title>
             <meta name ="description" content="IDK WHAT GOES HERE YET">
             
@@ -51,7 +52,7 @@
         <body>
             <script>
                 //require('aframe');
-               
+               ///PLEASE INSTALL XTERM VIA "npm install xterm" in the terminal
                               //const superhands = require('super-hands');
                 let socket = io();
                 var otherPlayers = [];
@@ -312,7 +313,7 @@
                   
                     <a-entity id="Far_Floor" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#far_floor_model" static-body></a-entity>
                     <a-entity   id="Far_Desk" position="0 0 -2.29" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" static-body shadow>
-                        <a-entity   id="far_monitor_model" position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33"
+                        <a-entity   id="far_monitor_model" class="interactive" computer position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33"
                             gltf-model="#monitor_model" static-body></a-entity>
                     </a-entity>
                 </a-entity>
