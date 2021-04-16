@@ -116,17 +116,6 @@ io.on('connection', (socket)=>{
 
     // Terminal ---------------
 
-    this.socket.on("input", input => {
-        //check input for matching command
-        
-
-    })
-
-    
-
-    let outputData = function(data){
-        socket.emit("output", data);
-    }
 
 });
 
