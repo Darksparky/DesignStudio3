@@ -13,9 +13,7 @@
             <script src="Js/deletekey.js"></script>
             <script src="Js/userplayer.js"></script>
             <script src="Js/scenecontroller.js"></script>
-            <script src="Js/computer.js\"></script>
-            <script src="Js/interactable.js"></script>
-            <script src="Js/objectmanager.js"></script>
+            <script src="Js/computer.js"></script>
             <!--Links Physics System by Don McCurdy and 17 other contributors...It is free to use commercially under the MIT License -->
             <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v3.3.0/dist/aframe-physics-system.min.js"></script>
             <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
@@ -46,12 +44,7 @@
                     bottom: 5%;
                     align-items: center;
                 }
-                #left-rotate-button{
-                    display: none;
-                }
-                #right-rotate-button{
-                    display: none;
-                }
+               
             </style>
         </head>
         
@@ -243,8 +236,7 @@
                     let pos = plyrEl.getAttribute('position');
                     let rot = plyrEl.getAttribute('rotation');
                     socket.emit('up', socket.id, pos, rot);
-                    let cam = document.querySelector('#camera');
-                    cam.components.objectmanager.updateFocus(socket);
+                    
                 }, 33)
                 
                 
@@ -369,7 +361,7 @@
                         </a-entity>
                     </a-entity>
 
-                    <a-entity   id="Closet_Lock" class="Pad" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge; lcd:#Closet_Lock_LCD; password: 3211; padID:Closet_Lock;" static-body>
+                    <a-entity   id="Closet_Lock" class="Pad" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge; lcd:#Closet_Lock_LCD; password: 1149; padID:Closet_Lock;" static-body>
                         <a-entity id="Closet_Lock_LCD" text="value:----; color:white; width:1; align:center;" position="0.01 0.18 0" rotation="0 90 0"></a-entity>
                         <a-entity id="Closet_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" enterkey="parentpadlock:#Closet_Lock" shadow>
                             <a-entity text="value:Ent; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
@@ -464,7 +456,7 @@
                     <a-entity id="Middle_Door" position="0 0 0.38" rotation="0 0 0" scale="1 1 1" gltf-model="#door_model" static-body shadow></a-entity>
                 </a-entity>
 
-                <a-entity id="Book" interactable position="4.6 0.915 -2.05" rotation="0 90 90" scale="1 1 1" gltf-model="#book_model" shadow></a-entity>
+                <a-entity id="Book" position="4.6 0.915 -2.05" rotation="0 90 90" scale="1 1 1" gltf-model="#book_model" shadow></a-entity>
                 
                 <a-entity id="Bed" position="-2.48 0 1.48" rotation="0 0 0" scale="1 1 1" gltf-model="#bed_model" shadow 
                 body="type: static; shape: none;"
@@ -479,12 +471,12 @@
             <div style="height: 360px; width: 640px;" id="securitycamDiv"></div>
             <div id="mobileOverlay" class="mobileHud"></div>
             
-            <div id="user-interface">
+            <!-- <div id="user-interface">
                 <div id="ui-holding-box"> 
                     <button id="left-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateLeft()">Rotate Left</button>
                     <button id="right-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateRight()">Rotate Right</button>
                 </div>
-            </div>
+            </div> -->
             
             <div id="computerOverlay"></div>
         </body>

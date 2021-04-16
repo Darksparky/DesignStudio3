@@ -20,6 +20,7 @@ AFRAME.registerComponent('computer',{
 
     },
     openView: function(){
+        let computer = document.querySelector('#computerOverlay');
         if(AFRAME.utils.device.isMobile()){
             let scontroller = document.querySelector('a-scene').getAttribute('scenecontroller');
             scontroller.data.moveActive = false;
@@ -27,21 +28,29 @@ AFRAME.registerComponent('computer',{
             cameraEl.removeAttribute('look-controls');
             let mobileHud = document.querySelector('#mobileOverlay');
             mobileHud.setAttribute('style','opacity: 0');
+            //the type of display style may need to be changed but the point is it is not none;
+            computer.style.display = 'block';
+
         }else{
             let playerEl = document.querySelector('#playercam');
             let cameraEl = document.querySelector('#camera');
             playerEl.removeAttribute('movement-controls');
             cameraEl.removeAttribute('look-controls');
+            //the type of display style may need to be changed but the point is it is not none;
+            computer.style.display = 'block';
         }
 
 
     },
     closeView: function(){
+        let computer = document.querySelector('#computerOverlay');  
         if(AFRAME.utils.device.isMobile()){
             let scontroller = document.querySelector('a-scene').getAttribute('scenecontroller');
             scontroller.data.moveActive = true;
             let cameraEl = document.querySelector('#camera');
             cameraEl.setAttribute('look-controls');
+            //remove the computer hud element via css
+            computer.style.display = 'none';
         }else{
             let playerEl = document.querySelector('#playercam');
             let cameraEl = document.querySelector('#camera');
@@ -49,6 +58,8 @@ AFRAME.registerComponent('computer',{
             cameraEl.setAttribute('look-controls');
             let mobileHud = document.querySelector('#mobileOverlay');
             mobileHud.setAttribute('style','opacity: 1');
+            //remove the computer hud element via css
+            computer.style.display = 'none';
         }
     }
 

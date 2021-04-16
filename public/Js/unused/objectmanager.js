@@ -1,9 +1,9 @@
 AFRAME.registerComponent('objectmanager', {
     schema: {
         isHolding: {type:'boolean', default: false},
-        defaultParent: {type: 'asset'},
+        defaultParent: {type: 'selector'},
         defaultPosition: {type: 'vec3'},
-        focus: {type: 'asset'}
+        focus: {type: 'selector'}
 
     },
     
