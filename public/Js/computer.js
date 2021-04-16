@@ -2,13 +2,13 @@ AFRAME.registerComponent('computer',{
     schema: {
         isUsed:{
             type: 'boolean',
-            default: false
+            default: 'false'
         }
     },
     init: function(){
         const CONTEXT_AF = this; 
         
-        CONTEXT_AF.el.addEventListener('click', function(){
+        CONTEXT_AF.addEventListener('click', function(){
         if(CONTEXT_AF.data.isUsed == false){
             CONTEXT_AF.data.isUsed = true;
             CONTEXT_AF.openView();
