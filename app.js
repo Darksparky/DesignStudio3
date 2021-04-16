@@ -111,7 +111,23 @@ io.on('connection', (socket)=>{
         io.emit('Player_Update', id, pos, rot);
     
 
-}));
+    }));
+
+
+    // Terminal ---------------
+
+    this.socket.on("input", input => {
+        //check input for matching command
+        
+
+    })
+
+    
+
+    let outputData = function(data){
+        socket.emit("output", data);
+    }
+
 });
 
  
