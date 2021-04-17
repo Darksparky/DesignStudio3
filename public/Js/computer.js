@@ -21,6 +21,7 @@ AFRAME.registerComponent('computer',{
             if(commandIsOpen){
                 command.style.display = 'none'; 
                 commandIsOpen = false;
+                  command.style.zIndex = -1;
             }   
         });
 
@@ -39,13 +40,14 @@ AFRAME.registerComponent('computer',{
             //open up command prompt
             
              if(!commandIsOpen){
+                 command.style.zIndex = 999;
                 command.style.display = 'block'; 
                 commandIsOpen = true;
-                alert('Command is open  ');
-                alert(command.style);
+                console.log(command.style);    
             } else {
                 command.style.display = 'none'; 
                 commandIsOpen = false;
+                command.style.zIndex = -1;
             }
         });
         let quitButton = document.querySelector('#closeComputer');
@@ -66,6 +68,8 @@ AFRAME.registerComponent('computer',{
             computer.style.display = 'block';
             let cameraEl = document.querySelector('#camera');
             cameraEl.setAttribute('look-controls', 'enabled: false');
+            let taskbar = document.querySelector('.img-tbar1');
+            taskbar.style.display= 'block';
         }
 
         if(AFRAME.utils.device.isMobile()){

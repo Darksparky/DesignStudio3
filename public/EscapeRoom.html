@@ -462,40 +462,7 @@
 
                 <a-entity id="Escape" geometry="primitive: plane" material="color: blue" position="-10 0 0" sound="src: /music/Escape.wav; autoplay: true; loop: true"></a-entity>
 
-                <a-entity id="Far_Room_Entity" position="10 0 0"> 
-                    
-                    <!-- <a-entity id="Security_Camera" camera position="0 1.6 -1" rotation="0 0 0" spectator="canvas:#securitycamDiv;" active="false"></a-entity> -->
-                    <!--<a-entity   id="Light_Fixture" position="0 2.2 0" rotation="0 0 0" gltf-model="#light_fixture_model" shadow></a-entity>-->
-                    <a-entity position="0 2.2 0" light="type:point; intensity:1; angle:40; penumbra:0.3; castShadow:false; shadowBias:-0.0007"></a-entity>
-                    
-                    <!--Doors are done by being parented to a hinge. This allows for them to simply do a local rotation to open.-->
-                    <a-entity id="Far_Door_Hinge" position="-2.55 0 -1.12" rotation="0 0 0" scale="1 1 1" animation__open="property:rotation.y; to:90; dur:200; startEvents:open;">
-                            <a-entity id="Far_Door" position="0 0 -0.38" rotation="0 0 0" scale="1 1 1" gltf-model="#door_model" shadow></a-entity>
-                    </a-entity>
-                    
-                    <a-entity   id="Far_Exit_Sign" position="-2.49 2.21 -1.5" gltf-model="#exit_sign_model" shadow></a-entity>
-
-                    <!--The walls of the room are all parented under a larger object for organizational purposes.-->
-                    <a-entity id="Far_Walls">
-                        <a-entity id="Far_Room_North_Wall" position="0 0 -2.65" rotation="0 0 0" scale="1 1 1" gltf-model="#far_wall_model" shadow static-body="offset: 0 1.372 0"></a-entity>
-                        <a-entity id="Far_Room_South_Wall" position="0 0 2.65" rotation="0 0 0" scale="1 1 1" gltf-model="#far_wall_model" shadow static-body="offset: 0 1.372 0"></a-entity>
-                        <a-entity id="Far_Room_East_Wall" position="2.55 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#far_wall_model" shadow 
-                        body="type: static; shape: none;"
-                        shape="offset: 0 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 2.6">
-                        </a-entity>
-                        <a-entity id="Far_Room_West_Wall" position="-2.55 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow 
-                        body="type: static; shape: none;"
-                        shape="offset: 0 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 2.6">
-                        </a-entity>
-                    </a-entity>
-                  
-                    <a-entity id="Far_Floor" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#far_floor_model" static-body></a-entity>
-                    <a-entity   id="Far_Desk" position="0 0 -2.29" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" static-body shadow>
-                        <a-entity   id="far_monitor_model" class="interactive" position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33"
-                            gltf-model="#monitor_model" static-body computer></a-entity>
-                    </a-entity>
-                </a-entity>
-
+               
                 <!--Everything in the starting room should be a child of Main_Room_Entity.-->
                 <a-entity   id="Main_Room_Entity">
                     <a-entity   id="Exit_Sign" position="-2.9185 2.21 -1.5" gltf-model="#exit_sign_model" shadow></a-entity>
@@ -597,7 +564,7 @@
                     <a-entity id="Walls">
                         <a-entity id="West_Wall" position="-3 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow
                         body="type: static; shape: none;"
-                        shape="offset: 0 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 2.6">
+                        shape__west="offset: 0 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 2.6">
                         </a-entity>
                         
                         <a-entity id="Middle_Wall" position="3 0 0" rotation="0 270 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow
@@ -610,14 +577,14 @@
                         
                         <a-entity id="East_Wall" position="6 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#far_wall_model" shadow 
                         body="type: static; shape: none;"
-                        shape="offset: 0 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 2.6">
+                        shape__East="offset: 0 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 2.6">
                         </a-entity>
 
                     </a-entity>
 
                     <a-entity   id="Study_Desk_1" position="4.5 0 -2.13" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow static-body></a-entity>
                     <a-entity   id="Study_Desk_2" position="5.6369 0 1.5" rotation="0 270 0" scale="1 1 1" gltf-model="#desk_model" shadow body="type: static; shape: none;"
-                    shape="offset: 0 0.45 0; orientation: 0 0 0 1; halfExtents: 0.6 0.45 0.3"></a-entity>
+                    shape__Desk="offset: 0 0.45 0; orientation: 0 0 0 1; halfExtents: 0.6 0.45 0.3"></a-entity>
                     <a-entity   id="Desk" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow static-body></a-entity>
                     <a-entity id="Shelves_1" position="2.75 0 -1.28" rotation="0 0 0" scale="1 1 1" gltf-model="#shelves_withHints_model" shadow static-body></a-entity>
 
@@ -639,10 +606,10 @@
                 
                 <a-entity id="Bed" position="-2.48 0 1.48" rotation="0 0 0" scale="1 1 1" gltf-model="#bed_model" shadow 
                 body="type: static; shape: none;"
-                shape="offset: 0 0.35 0; halfExtents: 0.47 0.35 1.016"
+                shape__Bed="offset: 0 0.35 0; halfExtents: 0.47 0.35 1.016"
                 ></a-entity>
                 <a-entity id="Floor"position="1.5 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#floor_model" body="type: static; shape: none;"
-                shape= "shape: box; orientation: 0.707 0 0.707 0; halfExtents 4.55 0.005 2.6" shadow>
+                shape__Floor= "shape: box; orientation: 0.707 0 0.707 0; halfExtents 4.55 0.005 2.6" shadow>
                 </a-entity>   
                 </a-entity>
 
