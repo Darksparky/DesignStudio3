@@ -48,6 +48,10 @@
                     margin: 0;
                     padding: 0;
                 }
+                .command-container {
+                    padding-bottom: 10px;
+                    overflow-y: auto;
+                }
 
                 header
                 {
@@ -63,7 +67,9 @@
                     width: 100px;
                 }
 
-
+                .error-message {
+                    color: rgb(219, 26, 26);
+                }
                 .pcbuttondiv
                 {
     
@@ -146,7 +152,11 @@
                     background-clip: padding-box;
                 } 
 
-
+                #command{
+                    position: absolute;
+                    left: 25vw;
+                    top: 25vh;
+                }
                 #commandPromptBody {  
                     background: rgba(235, 223, 223, 0.89);  
                     font-family: 'Times New Roman', Times, serif;  
@@ -190,17 +200,329 @@
                         background: #8a8585;  
                     }
                 } 
-
+                .hidden {
+                    display: none;
+                }
             </style>
         </head>
         
         <body>
+        
+            
+            <div id="computerOverlay" style="display: none;">
+               
+                <header>
+                    <button id="openCommandPrompt" class="btn b1">Open Command Prompt</button>
+                    <button id="closeComputer" class="btn b1">Close Computer</button>
+                </header>
+                
+                <div id="command" style="display: none;">
+                    <!-- Terminal Bar -->       
+                    <section id="commandPromptBar">          
+                      <div id="btn">            
+                        <button class="sideBtn" id="return">&#10005;</button>            
+                        <button class="sideBtn">&#9472;</button>                
+                        <button class="sideBtn">&#9723;</button>          
+                      </div>          
+                      <p id="Title">EscapeRoom@Desktop-%: ~</p>        
+                    </section>        
+                    <!-- Terminal Body -->        
+                    <section id="commandPromptBody" class="command-container">          
+                      <div id="command-text-0">            
+                        <span id="textOne">EscapeRoom@Desktop-%:</span>            
+                        <span id="textTwo">~</span>            
+                        <span id="textThree">$ Find the passcode to the second door by using the clues around you. Good Luck!</span>            
+                        <input id="command-input" type ="text" name ="password" autofocus>         
+                      </div>        
+                    </section>  
+
+                    <!-- hiddens -->
+                    <div id="command-text-tmp" class="hidden">            
+                        <span id="textOne">C:/EscapeRoom@Desktop-%: </span>      
+                        <span id="textTwo">~</span>
+                        <span id="textThree">$ Unlocked file found! Enter file name to open file. Type "help" for a clue 
+                        </span>
+                        <input id="command-input" type ="text" name ="password">       
+    
+                    </div>
+
+                    <span id="password-img" class="hidden"><img class="img-wrapper" src="./password-popup.jpeg"></span>
+  <!-- End hiddens -->
+                </div>
+                    
+                
+                <div class="img-tbar1" style="display: none;">
+                    <img src="fakeTaskbar.png" class="img-responsive">   
+                </div>  
+            </div>
+            <a-scene scenecontroller physics="debug: false; gravity: 0" loading-screen="dotsColor: red; backgroundColor: black">
+                <a-assets timeout="500000">
+                    <a-asset-item id="room_model"   response-type="arraybuffer" src="/assets/Room.glb"  ></a-asset-item>
+                    <a-asset-item id="monitor_model" response-type="arraybuffer" src="/assets/Monitor.glb"></a-asset-item>
+                    <a-asset-item id="desk_model" response-type="arraybuffer" src="/assets/Desk.glb"></a-asset-item>
+                    <a-asset-item id="wall_with_door_model" response-type="arraybuffer" src="/assets/Wall_with_door.glb"></a-asset-item>
+                    <a-asset-item id="tv_model" response-type="arraybuffer" src="/assets/Tv.glb"></a-asset-item>
+                    <a-asset-item id="long_wall_model" response-type="arraybuffer" src="/assets/Long_Wall.glb"></a-asset-item>
+                    <a-asset-item id="shelves_model" response-type="arraybuffer" src="/assets/Shelves.glb"></a-asset-item>
+                    <a-asset-item id="shelves_withHints_model" response-type="arraybuffer" src="/assets/bookshelvesWithHint.glb"></a-asset-item>
+
+                    <a-asset-item id="bed_model" response-type="arraybuffer" src="/assets/Bed.glb"></a-asset-item>
+                    <a-asset-item id="floor_model" response-type="arraybuffer" src="/assets/Floor.glb"></a-asset-item>
+                    <a-asset-item id="door_model" response-type="arraybuffer" src="/assets/Door.glb"></a-asset-item>
+                    <a-asset-item id="far_wall_model" response-type="arraybuffer" src="/assets/Far_Wall.glb"></a-asset-item>
+                    <a-asset-item id="pinboard_model" response-type="arraybuffer" src="/assets/Pinboard.glb"></a-asset-itme>
+                    <a-asset-item id="exit_sign_model" response-type="arraybuffer" src="/assets/Exit_Sign.glb"></a-asset-item>
+                    <a-asset-item id="padlock_model" response-type="arraybuffer" src="/assets/Padlock.glb"></a-asset-item>
+                    <a-asset-item id="light_fixture_model" response-type="arraybuffer" src="/assets/Light_Fixture.glb"></a-asset-item>
+                    <a-asset-item id="main_ceiling_model" response-type="arraybuffer" src="/assets/Main_Ceiling.glb"></a-asset-item>
+                    <a-asset-item id="small_ceiling_model" response-type="arraybuffer" src="/assets/Small_Ceiling.glb"></a-asset-item>
+                    <a-asset-item id="book_model" response-type="arraybuffer" src="/assets/Book.glb"></a-asset-item>
+                    <a-asset-item id="far_floor_model" response-type="arraybuffer" src="/assets/Far_Floor.glb"></a-asset-item>
+                    <a-asset-item id="delete_button_model" response-type="arraybuffer" src="/assets/Delete_Button.glb"></a-asset-item>
+                    <a-asset-item id="enter_button_model" response-type="arraybuffer" src="/assets/Enter_Button.glb"></a-asset-item>
+                    <a-asset-item id="key_pad_button_model" response-type="arraybuffer" src="/assets/Key_Pad_Button.glb"></a-asset-item>
+                </a-assets>
+
+               
+                <a-entity id="playercam" kinematic-body="radius: 0.3" movement-controls  position="0 0 1" userplayer>
+                    <a-entity id="camera" camera position="0 1.6 0" look-controls objectmanager></a-entity> 
+                </a-entity>
+               
+                    <a-entity cursor="rayOrigin:mouse;" raycaster="far:10; interval:200; objects:.interactive"></a-entity>
+                <a-entity id="monitor_model" class="interactive" computer position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33" gltf-model="#monitor_model"></a-entity>
+                <a-entity id="player_master" position>
+                </a-entity>
+                <!--Everything in the inaccessible room should be a child of Far_Room_entity.-->
+
+                <a-entity id="Escape" geometry="primitive: plane" material="color: blue" position="-10 0 0" sound="src: /music/Escape.wav; autoplay: true; loop: true"></a-entity>
+
+               
+                <!--Everything in the starting room should be a child of Main_Room_Entity.-->
+                <a-entity   id="Main_Room_Entity">
+                    <a-entity   id="Exit_Sign" position="-2.9185 2.21 -1.5" gltf-model="#exit_sign_model" shadow></a-entity>
+                    <a-entity   id="Desk" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow></a-entity>
+                    <a-entity   id="Exit_Lock" class="Pad" position="-2.94 1.2 -0.9" rotation="0 0 0" gltf-model="#padlock_model" shadow padlock="door:#Exit_Door_Hinge; password: 0339; lcd:#Exit_Lock_LCD; padID:Exit_Lock;">
+                        <a-entity id="Exit_Lock_LCD" text="value:----; color:white; width:1; align:center;" position="0.01 0.18 0" rotation="0 90 0"></a-entity>
+                        <a-entity id="Exit_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" enterkey="parentpadlock:#Exit_Lock" shadow>
+                            <a-entity text="value:Ent; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Exit_Lock_Delete_Button" class="interactive" position="0.01 0.02 -0.03" rotation="0 0 0" gltf-model="#delete_button_model" animation__press="property:position; from:0 0.02 -0.03; to:0.01 0.02 -0.03; dur:100; startEvents:click" deletekey="parentpadlock:#Exit_Lock" shadow>
+                            <a-entity text="value:Del; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Exit_Lock_Zero_Button" class="interactive" position="0.01 0.02 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.02 0; to:0.01 0.02 0; dur:100; startEvents:click" shadow numberkey="value:0; parentpadlock: #Exit_Lock;">
+                            <a-entity text="value:0; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Exit_Lock_One_Button" class="interactive" position="0.01 0.11 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0.03; to:0.01 0.11 0.03; dur:100; startEvents:click" shadow numberkey="value:1; parentpadlock: #Exit_Lock;">
+                            <a-entity text="value:1; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Exit_Lock_Two_Button" class="interactive" position="0.01 0.11 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0; to:0.01 0.11 0; dur:100; startEvents:click" shadow numberkey="value:2; parentpadlock: #Exit_Lock;">
+                            <a-entity text="value:2; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Exit_Lock_Three_Button" class="interactive" position="0.01 0.11 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 -0.03; to:0.01 0.11 -0.03; dur:100; startEvents:click" shadow numberkey="value:3; parentpadlock: #Exit_Lock;">
+                            <a-entity text="value:3; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Exit_Lock_Four_Button" class="interactive" position="0.01 0.08 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0.03; to:0.01 0.08 0.03; dur:100; startEvents:click" shadow numberkey="value:4; parentpadlock: #Exit_Lock;">
+                            <a-entity text="value:4; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Exit_Lock_Five_Button" class="interactive" position="0.01 0.08 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0; to:0.01 0.08 0; dur:100; startEvents:click" shadow numberkey="value:5; parentpadlock: #Exit_Lock;">
+                            <a-entity text="value:5; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Exit_Lock_Six_Button" class="interactive" position="0.01 0.08 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 -0.03; to:0.01 0.08 -0.03; dur:100; startEvents:click" shadow numberkey="value:6; parentpadlock: #Exit_Lock;">
+                            <a-entity text="value:6; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Exit_Lock_Seven_Button" class="interactive" position="0.01 0.05 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0.03; to:0.01 0.05 0.03; dur:100; startEvents:click" shadow numberkey="value:7; parentpadlock: #Exit_Lock;">
+                            <a-entity text="value:7; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Exit_Lock_Eight_Button" class="interactive" position="0.01 0.05 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0; to:0.01 0.05 0; dur:100; startEvents:click" shadow numberkey="value:8; parentpadlock: #Exit_Lock;">
+                            <a-entity text="value:8; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Exit_Lock_Nine_Button" class="interactive" position="0.01 0.05 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 -0.03; to:0.01 0.05 -0.03; dur:100; startEvents:click" shadow numberkey="value:9; parentpadlock: #Exit_Lock;">
+                            <a-entity text="value:9; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                    </a-entity>
+
+                    <a-entity   id="Closet_Lock" class="Pad" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge; lcd:#Closet_Lock_LCD; password: 1149; padID:Closet_Lock;" static-body>
+                        <a-entity id="Closet_Lock_LCD" text="value:----; color:white; width:1; align:center;" position="0.01 0.18 0" rotation="0 90 0"></a-entity>
+                        <a-entity id="Closet_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" enterkey="parentpadlock:#Closet_Lock" shadow>
+                            <a-entity text="value:Ent; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Delete_Button" class="interactive" position="0.01 0.02 -0.03" rotation="0 0 0" gltf-model="#delete_button_model" animation__press="property:position; from:0 0.02 -0.03; to:0.01 0.02 -0.03; dur:100; startEvents:click" deletekey="parentpadlock:#Closet_Lock" shadow>
+                            <a-entity text="value:Del; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Zero_Button" class="interactive" position="0.01 0.02 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.02 0; to:0.01 0.02 0; dur:100; startEvents:click" shadow numberkey="value:0; parentpadlock: #Closet_Lock;">
+                            <a-entity text="value:0; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_One_Button" class="interactive" position="0.01 0.11 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0.03; to:0.01 0.11 0.03; dur:100; startEvents:click" shadow numberkey="value:1; parentpadlock: #Closet_Lock;">
+                            <a-entity text="value:1; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Two_Button" class="interactive" position="0.01 0.11 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0; to:0.01 0.11 0; dur:100; startEvents:click" shadow numberkey="value:2; parentpadlock: #Closet_Lock;">
+                            <a-entity text="value:2; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Three_Button" class="interactive" position="0.01 0.11 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 -0.03; to:0.01 0.11 -0.03; dur:100; startEvents:click" shadow numberkey="value:3; parentpadlock: #Closet_Lock;">
+                            <a-entity text="value:3; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Four_Button" class="interactive" position="0.01 0.08 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0.03; to:0.01 0.08 0.03; dur:100; startEvents:click" shadow numberkey="value:4; parentpadlock: #Closet_Lock;">
+                            <a-entity text="value:4; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Five_Button" class="interactive" position="0.01 0.08 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0; to:0.01 0.08 0; dur:100; startEvents:click" shadow numberkey="value:5; parentpadlock: #Closet_Lock;">
+                            <a-entity text="value:5; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Six_Button" class="interactive" position="0.01 0.08 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 -0.03; to:0.01 0.08 -0.03; dur:100; startEvents:click" shadow numberkey="value:6; parentpadlock: #Closet_Lock;">
+                            <a-entity text="value:6; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Seven_Button" class="interactive" position="0.01 0.05 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0.03; to:0.01 0.05 0.03; dur:100; startEvents:click" shadow numberkey="value:7; parentpadlock: #Closet_Lock;">
+                            <a-entity text="value:7; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Eight_Button" class="interactive" position="0.01 0.05 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0; to:0.01 0.05 0; dur:100; startEvents:click" shadow numberkey="value:8; parentpadlock: #Closet_Lock;">
+                            <a-entity text="value:8; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                        <a-entity id="Closet_Lock_Nine_Button" class="interactive" position="0.01 0.05 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 -0.03; to:0.01 0.05 -0.03; dur:100; startEvents:click" shadow numberkey="value:9; parentpadlock: #Closet_Lock;">
+                            <a-entity text="value:9; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
+                        </a-entity>
+                    </a-entity>
+                    <a-entity   id="Light_Fixture" position="0 2.2 0" rotation="0 0 0" gltf-model="#light_fixture_model" shadow>
+                        <a-entity position="-0.5 -0.5 0" light="type:point; intensity:1; angle:40; penumbra:0.3; castShadow:false; shadowBias:-0.0007"></a-entity>
+                    </a-entity>
+                    <a-entity   id="Pinboard" position="0 0.75 2.495" rotation="0 0 0" gltf-model="#pinboard_model" shadow>
+                        <!--a-entity text="value:Grocery List; color:black; width:0.8; align:center;" position="0.5 1 -0.1" rotation="0 180 0"></a-entity>
+                        <a-entity text="value:3 Carrots; color:black; width:0.8; align:center;" position="0.498 0.943 -0.1" rotation="0 180 0"></a-entity>
+                        <a-entity text="value:2 Onions; color:black; width:0.8; align:center;" position="0.5 0.893 -0.1" rotation="0 180 0"></a-entity>
+                        <a-entity text="value:1 Bag of Rice; color:black; width:0.8; align:center;" position="0.469 0.845 -0.1" rotation="0 180 0"></a-entity>
+                        <a-entity text="value:1 Chicken; color:black; width:0.8; align:center;" position="0.498 0.798 -0.1" rotation="0 180 0"></a-entity-->
+                    </a-entity>
+                    <a-entity   id="TV" position="0 1 -2.49" rotation="0 0 0" scale="1.1 1.1 1.1" gltf-model="#tv_model" shadow>
+                   
+                    </a-entity>
+                    <a-entity geometry="primitive:plane;width:1.549;height:0.871;" position="0 1.5 -2.47" rotation="0 0 0" material="src:#canvas"></a-entity>
+                    <!--The walls of the room are all parented under a larger object for organizational purposes.-->
+                    <a-entity id="Walls">
+                        <a-entity id="West_Wall" position="-3 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow
+                        body="type: static; shape: none;"
+                        shape__west="offset: 0 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 2.6">
+                        </a-entity>
+                        
+                        <a-entity id="Middle_Wall" position="3 0 0" rotation="0 270 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow
+                        body="type: static; shape: none;"
+                        shape__north="offset: -0.74 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 1.86"
+                        shape__south="offset: 2.24 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 0.36">
+                        </a-entity>
+                        <a-entity id="North_Wall" position="1.5 0 2.55" rotation="0 0 0" scale="1 1 1" gltf-model="#long_wall_model" shadow static-body="offset: 0 1.372 0"></a-entity>
+                        <a-entity id="South_Wall" position="1.5 0 -2.55" rotation="0 0 0" scale="1 1 1" gltf-model="#long_wall_model" shadow static-body="offset: 0 1.372 0"></a-entity>
+                        
+                        <a-entity id="East_Wall" position="6 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#far_wall_model" shadow 
+                        body="type: static; shape: none;"
+                        shape__East="offset: 0 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 2.6">
+                        </a-entity>
+
+                    </a-entity>
+
+                    <a-entity   id="Study_Desk_1" position="4.5 0 -2.13" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow static-body></a-entity>
+                    <a-entity   id="Study_Desk_2" position="5.6369 0 1.5" rotation="0 270 0" scale="1 1 1" gltf-model="#desk_model" shadow body="type: static; shape: none;"
+                    shape__Desk="offset: 0 0.45 0; orientation: 0 0 0 1; halfExtents: 0.6 0.45 0.3"></a-entity>
+                    <a-entity   id="Desk" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow static-body></a-entity>
+                    <a-entity id="Shelves_1" position="2.75 0 -1.28" rotation="0 0 0" scale="1 1 1" gltf-model="#shelves_withHints_model" shadow static-body></a-entity>
+
+                    
+                    <a-entity id="Shelves_2" position="5.7685 0 -1.28" rotation="0 0 0" scale="1 1 1" gltf-model="#shelves_model" shadow static-body></a-entity>
+                    <a-entity id="Shelves_3" position="3.224 0 -1.28" rotation="0 180 0" scale="1 1 1" gltf-model="#shelves_model" shadow static-body></a-entity>
+                
+                <!--Doors are done by being parented to a hinge. This allows for them to simply do a local rotation to open.-->
+                <a-entity id="Exit_Door_Hinge" position="-3 0 -1.12" rotation="0 0 0" scale="1 1 1" animation__open="property:rotation.y; to:90; dur:200; startEvents:open;" animation__close="property:rotation.y; to:0; dur:200; startEvents:close;">
+                    <a-entity id="Exit_Door" position="0 0 -0.38" rotation="0 180 0" scale="1 1 1" gltf-model="#door_model" shadow></a-entity>
+                </a-entity>
+
+               <!--Doors are done by being parented to a hinge. This allows for them to simply do a local rotation to open.-->
+                <a-entity id="Middle_Door_Hinge" position="3 0 1.12" animation__open="property:rotation.y; to:90; dur:200; startEvents:open;" animation__close="property:rotation.y; to:0; dur:200; startEvents:close;">
+                    <a-entity id="Middle_Door" position="0 0 0.38" rotation="0 0 0" scale="1 1 1" gltf-model="#door_model" static-body shadow></a-entity>
+                </a-entity>
+
+                <a-entity id="Book" position="4.6 0.915 -2.05" rotation="0 90 90" scale="1 1 1" gltf-model="#book_model" shadow></a-entity>
+                
+                <a-entity id="Bed" position="-2.48 0 1.48" rotation="0 0 0" scale="1 1 1" gltf-model="#bed_model" shadow 
+                body="type: static; shape: none;"
+                shape__Bed="offset: 0 0.35 0; halfExtents: 0.47 0.35 1.016"
+                ></a-entity>
+                <a-entity id="Floor"position="1.5 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#floor_model" body="type: static; shape: none;"
+                shape__Floor= "shape: box; orientation: 0.707 0 0.707 0; halfExtents 4.55 0.005 2.6" shadow>
+                </a-entity>   
+                </a-entity>
+
+            </a-scene>
+            <div style="height: 360px; width: 640px;" id="securitycamDiv"></div>
+            <div id="mobileOverlay" class="mobileHud"></div>
+            
+            <!-- <div id="user-interface">
+                <div id="ui-holding-box"> 
+                    <button id="left-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateLeft()">Rotate Left</button>
+                    <button id="right-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateRight()">Rotate Right</button>
+                </div>
+            </div> -->
             <script>
                 //require('aframe');
                
                               //const superhands = require('super-hands');
                 let socket = io();
                 var otherPlayers = [];
+                var commandDiv = document.getElementById("command");
+                var inputIndex = 0;
+                var commandTextbox = document.getElementById("command-input");
+                var commandInputLine = document.getElementById("command-text");
+                var commandPromptSection = document.getElementById("commandPromptBody");
+                var spanNode = document.createElement("SPAN");
+                var textnode = document.createTextNode("Type ls to list the current directory");
+                var brNode = document.createElement("BR");
+                directoryListNode = document.createElement("UL");
+                listElement = document.createElement("LI");
+                listElement.appendChild(document.createTextNode("password.txt"));
+                directoryListNode.appendChild(listElement)
+                spanNode.appendChild(textnode);  
+                spanNode.appendChild(brNode);
+
+                function handleInput(e) {
+                    console.log('handleinput');
+                    if (e.key === 'Enter') {
+                        console.log('pressed enter');
+                        var input = e.target.value.toLowerCase();
+                        if (input === "help") {
+                            commandPromptSection.appendChild(spanNode.cloneNode(true));        
+                        } else if (input === "ls") {
+                            commandPromptSection.appendChild(directoryListNode.cloneNode(true));
+                        } else if (input === "password.txt") {
+                            var img = document.getElementById("password-img").cloneNode(true);
+                            img.classList.remove("hidden");
+
+                            commandPromptSection.appendChild(img);
+                        } else {
+                            var span = document.createElement("SPAN");
+                            var text = document.createTextNode("Error: command '" + e.target.value+ "' does not exist. Please try again.");
+                            var br = document.createElement("BR");
+                            span.appendChild(text);  
+                            span.appendChild(br);
+                            span.className = "error-message";
+                            commandPromptSection.appendChild(span);
+                        }
+
+                    removePreviousInputBoxAndAddNewOne();
+                    commandPromptSection.scrollTop = commandPromptSection.scrollHeight;
+                    }
+                }
+
+            commandTextbox.addEventListener('keypress', function (e) { handleInput(e); });
+           // commandDiv.addEventListener('keypress', function (e){handleInput(e);});
+            function removePreviousInputBoxAndAddNewOne() {
+                var newLine = document.getElementById("command-text-tmp").cloneNode(true);
+                var node = document.getElementById("command-text-" + inputIndex);
+                
+                newLine.classList.remove("hidden");  
+                node.removeChild(document.getElementById("command-input"));
+                inputIndex++;
+                newLine.id = "command-text-" + inputIndex;
+                newLine.addEventListener('keypress', handleInput);
+                commandPromptSection.appendChild(newLine);
+                document.getElementById("command-input").focus();
+            }
+
+
                 class Player {
                     pos = {
                         x: 0,
@@ -386,244 +708,7 @@
                 }, 33)
                 
                 
-            </script>
-            
-            <div id="computerOverlay" style="display: none;">
-               
-                <header>
-                    <button id="openCommandPrompt" class="btn b1">Open Command Prompt</button>
-                    <button id="closeComputer" class="btn b1">Close Computer</button>
-                </header>
-                
-                <div id="command" style="display: none;">
-                    <!-- Terminal Bar -->       
-                    <section id="commandPromptBar">          
-                      <div id="btn">            
-                        <button class="sideBtn" id="return">&#10005;</button>            
-                        <button class="sideBtn">&#9472;</button>                
-                        <button class="sideBtn">&#9723;</button>          
-                      </div>          
-                      <p id="Title">EscapeRoom@Desktop-%: ~</p>        
-                    </section>        
-                    <!-- Terminal Body -->        
-                    <section id="commandPromptBody">          
-                      <div id="text">            
-                        <span id="textOne">EscapeRoom@Desktop-%:</span>            
-                        <span id="textTwo">~</span>            
-                        <span id="textThree">$ Find the passcode to the second door by using the clues around you. Good Luck!</span>            
-                        <span id="textFour">  </span>          
-                      </div>        
-                    </section>  
-                </div>
-                    
-                
-                <div class="img-tbar1" style="display: none;">
-                    <img src="fakeTaskbar.png" class="img-responsive">   
-                </div>  
-            </div>
-            <a-scene scenecontroller physics="debug: false; gravity: 0" loading-screen="dotsColor: red; backgroundColor: black">
-                <a-assets timeout="500000">
-                    <a-asset-item id="room_model"   response-type="arraybuffer" src="/assets/Room.glb"  ></a-asset-item>
-                    <a-asset-item id="monitor_model" response-type="arraybuffer" src="/assets/Monitor.glb"></a-asset-item>
-                    <a-asset-item id="desk_model" response-type="arraybuffer" src="/assets/Desk.glb"></a-asset-item>
-                    <a-asset-item id="wall_with_door_model" response-type="arraybuffer" src="/assets/Wall_with_door.glb"></a-asset-item>
-                    <a-asset-item id="tv_model" response-type="arraybuffer" src="/assets/Tv.glb"></a-asset-item>
-                    <a-asset-item id="long_wall_model" response-type="arraybuffer" src="/assets/Long_Wall.glb"></a-asset-item>
-                    <a-asset-item id="shelves_model" response-type="arraybuffer" src="/assets/Shelves.glb"></a-asset-item>
-                    <a-asset-item id="shelves_withHints_model" response-type="arraybuffer" src="/assets/bookshelvesWithHint.glb"></a-asset-item>
-
-                    <a-asset-item id="bed_model" response-type="arraybuffer" src="/assets/Bed.glb"></a-asset-item>
-                    <a-asset-item id="floor_model" response-type="arraybuffer" src="/assets/Floor.glb"></a-asset-item>
-                    <a-asset-item id="door_model" response-type="arraybuffer" src="/assets/Door.glb"></a-asset-item>
-                    <a-asset-item id="far_wall_model" response-type="arraybuffer" src="/assets/Far_Wall.glb"></a-asset-item>
-                    <a-asset-item id="pinboard_model" response-type="arraybuffer" src="/assets/Pinboard.glb"></a-asset-itme>
-                    <a-asset-item id="exit_sign_model" response-type="arraybuffer" src="/assets/Exit_Sign.glb"></a-asset-item>
-                    <a-asset-item id="padlock_model" response-type="arraybuffer" src="/assets/Padlock.glb"></a-asset-item>
-                    <a-asset-item id="light_fixture_model" response-type="arraybuffer" src="/assets/Light_Fixture.glb"></a-asset-item>
-                    <a-asset-item id="main_ceiling_model" response-type="arraybuffer" src="/assets/Main_Ceiling.glb"></a-asset-item>
-                    <a-asset-item id="small_ceiling_model" response-type="arraybuffer" src="/assets/Small_Ceiling.glb"></a-asset-item>
-                    <a-asset-item id="book_model" response-type="arraybuffer" src="/assets/Book.glb"></a-asset-item>
-                    <a-asset-item id="far_floor_model" response-type="arraybuffer" src="/assets/Far_Floor.glb"></a-asset-item>
-                    <a-asset-item id="delete_button_model" response-type="arraybuffer" src="/assets/Delete_Button.glb"></a-asset-item>
-                    <a-asset-item id="enter_button_model" response-type="arraybuffer" src="/assets/Enter_Button.glb"></a-asset-item>
-                    <a-asset-item id="key_pad_button_model" response-type="arraybuffer" src="/assets/Key_Pad_Button.glb"></a-asset-item>
-                </a-assets>
-
-               
-                <a-entity id="playercam" kinematic-body="radius: 0.3" movement-controls  position="0 0 1" userplayer>
-                    <a-entity id="camera" camera position="0 1.6 0" look-controls objectmanager></a-entity> 
-                </a-entity>
-               
-                    <a-entity cursor="rayOrigin:mouse;" raycaster="far:10; interval:200; objects:.interactive"></a-entity>
-                <a-entity id="monitor_model" class="interactive" computer position="0 0.9 -0.15" rotation="0 0 0" scale="0.33 0.33 0.33" gltf-model="#monitor_model"></a-entity>
-                <a-entity id="player_master" position>
-                </a-entity>
-                <!--Everything in the inaccessible room should be a child of Far_Room_entity.-->
-
-                <a-entity id="Escape" geometry="primitive: plane" material="color: blue" position="-10 0 0" sound="src: /music/Escape.wav; autoplay: true; loop: true"></a-entity>
-
-               
-                <!--Everything in the starting room should be a child of Main_Room_Entity.-->
-                <a-entity   id="Main_Room_Entity">
-                    <a-entity   id="Exit_Sign" position="-2.9185 2.21 -1.5" gltf-model="#exit_sign_model" shadow></a-entity>
-                    <a-entity   id="Desk" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow></a-entity>
-                    <a-entity   id="Exit_Lock" class="Pad" position="-2.94 1.2 -0.9" rotation="0 0 0" gltf-model="#padlock_model" shadow padlock="door:#Exit_Door_Hinge; password: 1111; lcd:#Exit_Lock_LCD; padID:Exit_Lock;">
-                        <a-entity id="Exit_Lock_LCD" text="value:----; color:white; width:1; align:center;" position="0.01 0.18 0" rotation="0 90 0"></a-entity>
-                        <a-entity id="Exit_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" enterkey="parentpadlock:#Exit_Lock" shadow>
-                            <a-entity text="value:Ent; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Exit_Lock_Delete_Button" class="interactive" position="0.01 0.02 -0.03" rotation="0 0 0" gltf-model="#delete_button_model" animation__press="property:position; from:0 0.02 -0.03; to:0.01 0.02 -0.03; dur:100; startEvents:click" deletekey="parentpadlock:#Exit_Lock" shadow>
-                            <a-entity text="value:Del; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Exit_Lock_Zero_Button" class="interactive" position="0.01 0.02 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.02 0; to:0.01 0.02 0; dur:100; startEvents:click" shadow numberkey="value:0; parentpadlock: #Exit_Lock;">
-                            <a-entity text="value:0; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Exit_Lock_One_Button" class="interactive" position="0.01 0.11 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0.03; to:0.01 0.11 0.03; dur:100; startEvents:click" shadow numberkey="value:1; parentpadlock: #Exit_Lock;">
-                            <a-entity text="value:1; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Exit_Lock_Two_Button" class="interactive" position="0.01 0.11 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0; to:0.01 0.11 0; dur:100; startEvents:click" shadow numberkey="value:2; parentpadlock: #Exit_Lock;">
-                            <a-entity text="value:2; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Exit_Lock_Three_Button" class="interactive" position="0.01 0.11 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 -0.03; to:0.01 0.11 -0.03; dur:100; startEvents:click" shadow numberkey="value:3; parentpadlock: #Exit_Lock;">
-                            <a-entity text="value:3; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Exit_Lock_Four_Button" class="interactive" position="0.01 0.08 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0.03; to:0.01 0.08 0.03; dur:100; startEvents:click" shadow numberkey="value:4; parentpadlock: #Exit_Lock;">
-                            <a-entity text="value:4; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Exit_Lock_Five_Button" class="interactive" position="0.01 0.08 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0; to:0.01 0.08 0; dur:100; startEvents:click" shadow numberkey="value:5; parentpadlock: #Exit_Lock;">
-                            <a-entity text="value:5; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Exit_Lock_Six_Button" class="interactive" position="0.01 0.08 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 -0.03; to:0.01 0.08 -0.03; dur:100; startEvents:click" shadow numberkey="value:6; parentpadlock: #Exit_Lock;">
-                            <a-entity text="value:6; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Exit_Lock_Seven_Button" class="interactive" position="0.01 0.05 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0.03; to:0.01 0.05 0.03; dur:100; startEvents:click" shadow numberkey="value:7; parentpadlock: #Exit_Lock;">
-                            <a-entity text="value:7; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Exit_Lock_Eight_Button" class="interactive" position="0.01 0.05 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0; to:0.01 0.05 0; dur:100; startEvents:click" shadow numberkey="value:8; parentpadlock: #Exit_Lock;">
-                            <a-entity text="value:8; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Exit_Lock_Nine_Button" class="interactive" position="0.01 0.05 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 -0.03; to:0.01 0.05 -0.03; dur:100; startEvents:click" shadow numberkey="value:9; parentpadlock: #Exit_Lock;">
-                            <a-entity text="value:9; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                    </a-entity>
-
-                    <a-entity   id="Closet_Lock" class="Pad" position="2.94 1.2 0.9" rotation="0 180 0" gltf-model="#padlock_model" shadow padlock="door:#Middle_Door_Hinge; lcd:#Closet_Lock_LCD; password: 1149; padID:Closet_Lock;" static-body>
-                        <a-entity id="Closet_Lock_LCD" text="value:----; color:white; width:1; align:center;" position="0.01 0.18 0" rotation="0 90 0"></a-entity>
-                        <a-entity id="Closet_Lock_Enter_Button" class="interactive" position="0.01 0.02 0.03" rotation="0 0 0" gltf-model="#enter_button_model" animation__press="property:position; from:0 0.02 0.03; to:0.01 0.02 0.03; dur:100; startEvents:click" enterkey="parentpadlock:#Closet_Lock" shadow>
-                            <a-entity text="value:Ent; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Closet_Lock_Delete_Button" class="interactive" position="0.01 0.02 -0.03" rotation="0 0 0" gltf-model="#delete_button_model" animation__press="property:position; from:0 0.02 -0.03; to:0.01 0.02 -0.03; dur:100; startEvents:click" deletekey="parentpadlock:#Closet_Lock" shadow>
-                            <a-entity text="value:Del; color:black; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Closet_Lock_Zero_Button" class="interactive" position="0.01 0.02 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.02 0; to:0.01 0.02 0; dur:100; startEvents:click" shadow numberkey="value:0; parentpadlock: #Closet_Lock;">
-                            <a-entity text="value:0; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Closet_Lock_One_Button" class="interactive" position="0.01 0.11 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0.03; to:0.01 0.11 0.03; dur:100; startEvents:click" shadow numberkey="value:1; parentpadlock: #Closet_Lock;">
-                            <a-entity text="value:1; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Closet_Lock_Two_Button" class="interactive" position="0.01 0.11 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 0; to:0.01 0.11 0; dur:100; startEvents:click" shadow numberkey="value:2; parentpadlock: #Closet_Lock;">
-                            <a-entity text="value:2; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Closet_Lock_Three_Button" class="interactive" position="0.01 0.11 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.11 -0.03; to:0.01 0.11 -0.03; dur:100; startEvents:click" shadow numberkey="value:3; parentpadlock: #Closet_Lock;">
-                            <a-entity text="value:3; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Closet_Lock_Four_Button" class="interactive" position="0.01 0.08 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0.03; to:0.01 0.08 0.03; dur:100; startEvents:click" shadow numberkey="value:4; parentpadlock: #Closet_Lock;">
-                            <a-entity text="value:4; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Closet_Lock_Five_Button" class="interactive" position="0.01 0.08 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 0; to:0.01 0.08 0; dur:100; startEvents:click" shadow numberkey="value:5; parentpadlock: #Closet_Lock;">
-                            <a-entity text="value:5; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Closet_Lock_Six_Button" class="interactive" position="0.01 0.08 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.08 -0.03; to:0.01 0.08 -0.03; dur:100; startEvents:click" shadow numberkey="value:6; parentpadlock: #Closet_Lock;">
-                            <a-entity text="value:6; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Closet_Lock_Seven_Button" class="interactive" position="0.01 0.05 0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0.03; to:0.01 0.05 0.03; dur:100; startEvents:click" shadow numberkey="value:7; parentpadlock: #Closet_Lock;">
-                            <a-entity text="value:7; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Closet_Lock_Eight_Button" class="interactive" position="0.01 0.05 0" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 0; to:0.01 0.05 0; dur:100; startEvents:click" shadow numberkey="value:8; parentpadlock: #Closet_Lock;">
-                            <a-entity text="value:8; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                        <a-entity id="Closet_Lock_Nine_Button" class="interactive" position="0.01 0.05 -0.03" rotation="0 0 0" gltf-model="#key_pad_button_model" animation__press="property:position; from:0 0.05 -0.03; to:0.01 0.05 -0.03; dur:100; startEvents:click" shadow numberkey="value:9; parentpadlock: #Closet_Lock;">
-                            <a-entity text="value:9; width:0.25; align:center;" position="0.01 0.01 0" rotation="0 90 0"></a-entity>
-                        </a-entity>
-                    </a-entity>
-                    <a-entity   id="Light_Fixture" position="0 2.2 0" rotation="0 0 0" gltf-model="#light_fixture_model" shadow>
-                        <a-entity position="-0.5 -0.5 0" light="type:point; intensity:1; angle:40; penumbra:0.3; castShadow:false; shadowBias:-0.0007"></a-entity>
-                    </a-entity>
-                    <a-entity   id="Pinboard" position="0 0.75 2.495" rotation="0 0 0" gltf-model="#pinboard_model" shadow>
-                        <!--a-entity text="value:Grocery List; color:black; width:0.8; align:center;" position="0.5 1 -0.1" rotation="0 180 0"></a-entity>
-                        <a-entity text="value:3 Carrots; color:black; width:0.8; align:center;" position="0.498 0.943 -0.1" rotation="0 180 0"></a-entity>
-                        <a-entity text="value:2 Onions; color:black; width:0.8; align:center;" position="0.5 0.893 -0.1" rotation="0 180 0"></a-entity>
-                        <a-entity text="value:1 Bag of Rice; color:black; width:0.8; align:center;" position="0.469 0.845 -0.1" rotation="0 180 0"></a-entity>
-                        <a-entity text="value:1 Chicken; color:black; width:0.8; align:center;" position="0.498 0.798 -0.1" rotation="0 180 0"></a-entity-->
-                    </a-entity>
-                    <a-entity   id="TV" position="0 1 -2.49" rotation="0 0 0" scale="1.1 1.1 1.1" gltf-model="#tv_model" shadow>
-                   
-                    </a-entity>
-                    <a-entity geometry="primitive:plane;width:1.549;height:0.871;" position="0 1.5 -2.47" rotation="0 0 0" material="src:#canvas"></a-entity>
-                    <!--The walls of the room are all parented under a larger object for organizational purposes.-->
-                    <a-entity id="Walls">
-                        <a-entity id="West_Wall" position="-3 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow
-                        body="type: static; shape: none;"
-                        shape__west="offset: 0 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 2.6">
-                        </a-entity>
-                        
-                        <a-entity id="Middle_Wall" position="3 0 0" rotation="0 270 0" scale="1 1 1" gltf-model="#wall_with_door_model" shadow
-                        body="type: static; shape: none;"
-                        shape__north="offset: -0.74 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 1.86"
-                        shape__south="offset: 2.24 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 0.36">
-                        </a-entity>
-                        <a-entity id="North_Wall" position="1.5 0 2.55" rotation="0 0 0" scale="1 1 1" gltf-model="#long_wall_model" shadow static-body="offset: 0 1.372 0"></a-entity>
-                        <a-entity id="South_Wall" position="1.5 0 -2.55" rotation="0 0 0" scale="1 1 1" gltf-model="#long_wall_model" shadow static-body="offset: 0 1.372 0"></a-entity>
-                        
-                        <a-entity id="East_Wall" position="6 0 0" rotation="0 90 0" scale="1 1 1" gltf-model="#far_wall_model" shadow 
-                        body="type: static; shape: none;"
-                        shape__East="offset: 0 1.372 0; orientation: 0.707 0 0.707 0; halfExtents: 0.05 1.372 2.6">
-                        </a-entity>
-
-                    </a-entity>
-
-                    <a-entity   id="Study_Desk_1" position="4.5 0 -2.13" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow static-body></a-entity>
-                    <a-entity   id="Study_Desk_2" position="5.6369 0 1.5" rotation="0 270 0" scale="1 1 1" gltf-model="#desk_model" shadow body="type: static; shape: none;"
-                    shape__Desk="offset: 0 0.45 0; orientation: 0 0 0 1; halfExtents: 0.6 0.45 0.3"></a-entity>
-                    <a-entity   id="Desk" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#desk_model" shadow static-body></a-entity>
-                    <a-entity id="Shelves_1" position="2.75 0 -1.28" rotation="0 0 0" scale="1 1 1" gltf-model="#shelves_withHints_model" shadow static-body></a-entity>
-
-                    
-                    <a-entity id="Shelves_2" position="5.7685 0 -1.28" rotation="0 0 0" scale="1 1 1" gltf-model="#shelves_model" shadow static-body></a-entity>
-                    <a-entity id="Shelves_3" position="3.224 0 -1.28" rotation="0 180 0" scale="1 1 1" gltf-model="#shelves_model" shadow static-body></a-entity>
-                
-                <!--Doors are done by being parented to a hinge. This allows for them to simply do a local rotation to open.-->
-                <a-entity id="Exit_Door_Hinge" position="-3 0 -1.12" rotation="0 0 0" scale="1 1 1" animation__open="property:rotation.y; to:90; dur:200; startEvents:open;" animation__close="property:rotation.y; to:0; dur:200; startEvents:close;">
-                    <a-entity id="Exit_Door" position="0 0 -0.38" rotation="0 180 0" scale="1 1 1" gltf-model="#door_model" shadow></a-entity>
-                </a-entity>
-
-               <!--Doors are done by being parented to a hinge. This allows for them to simply do a local rotation to open.-->
-                <a-entity id="Middle_Door_Hinge" position="3 0 1.12" animation__open="property:rotation.y; to:90; dur:200; startEvents:open;" animation__close="property:rotation.y; to:0; dur:200; startEvents:close;">
-                    <a-entity id="Middle_Door" position="0 0 0.38" rotation="0 0 0" scale="1 1 1" gltf-model="#door_model" static-body shadow></a-entity>
-                </a-entity>
-
-                <a-entity id="Book" position="4.6 0.915 -2.05" rotation="0 90 90" scale="1 1 1" gltf-model="#book_model" shadow></a-entity>
-                
-                <a-entity id="Bed" position="-2.48 0 1.48" rotation="0 0 0" scale="1 1 1" gltf-model="#bed_model" shadow 
-                body="type: static; shape: none;"
-                shape__Bed="offset: 0 0.35 0; halfExtents: 0.47 0.35 1.016"
-                ></a-entity>
-                <a-entity id="Floor"position="1.5 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#floor_model" body="type: static; shape: none;"
-                shape__Floor= "shape: box; orientation: 0.707 0 0.707 0; halfExtents 4.55 0.005 2.6" shadow>
-                </a-entity>   
-                </a-entity>
-
-            </a-scene>
-            <div style="height: 360px; width: 640px;" id="securitycamDiv"></div>
-            <div id="mobileOverlay" class="mobileHud"></div>
-            
-            <!-- <div id="user-interface">
-                <div id="ui-holding-box"> 
-                    <button id="left-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateLeft()">Rotate Left</button>
-                    <button id="right-rotate-button" onclick="document.querySelector('[objectmanager]').components.manager.rotateRight()">Rotate Right</button>
-                </div>
-            </div> -->
-            
+            </script>   
             
         </body>
 </html>
