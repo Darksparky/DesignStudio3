@@ -93,3 +93,20 @@ background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.3)),url(wallpaper.
   }
 } 
 
+.hidden {
+    display: none;
+}
+
+.img-wrapper {
+    height: 225px;
+    padding: 10px 0px 10px 10px;
+}
+
+.command-container {
+    padding-bottom: 10px;
+    overflow-y: auto;
+}
+
+.error-message {
+    color: rgb(219, 26, 26);
+}
