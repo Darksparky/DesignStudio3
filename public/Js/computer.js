@@ -3,11 +3,28 @@ AFRAME.registerComponent('computer',{
         isUsed:{
             type: 'boolean',
             default: false
+        },
+        commandIsOpen:{
+            type: 'boolean',
+            default: false
         }
     },
     init: function(){
+        console.log('running init for comp');
         const CONTEXT_AF = this; 
+        let sidebutton1 = document.querySelector('#return');
+       // let computerOverlay = document.querySelector('#computerOverlay');
         
+        let command = document.querySelector('#command');
+
+        sidebutton1.addEventListener('click', function(){
+            if(commandIsOpen){
+                command.style.display = 'none'; 
+                commandIsOpen = false;
+            }   
+        });
+
+       let commandIsOpen = CONTEXT_AF.data.commandIsOpen;
         CONTEXT_AF.el.addEventListener('click', function(){
         if(CONTEXT_AF.data.isUsed == false){
             CONTEXT_AF.data.isUsed = true;
@@ -17,54 +34,53 @@ AFRAME.registerComponent('computer',{
             CONTEXT_AF.closeView();
         }   
         });
+        let commandPromptButton = document.querySelector("#openCommandPrompt");
+        commandPromptButton.addEventListener('click', function() {
+            //open up command prompt
+            
+             if(!commandIsOpen){
+                command.style.display = 'block'; 
+                commandIsOpen = true;
+                alert('Command is open  ');
+                alert(command.style);
+            } else {
+                command.style.display = 'none'; 
+                commandIsOpen = false;
+            }
+        });
+        let quitButton = document.querySelector('#closeComputer');
+        quitButton.addEventListener('click', function(){
+            CONTEXT_AF.closeView();
+        });
 
     },
     openView: function(){
         const CONTEXT_AF = this;
+        
         let sceneEl = document.querySelector('a-scene');
         sceneEl.style.display = 'none';
         let computer = document.querySelector('#computerOverlay');
+        
+
         let setupcomp = function(){
-            let quitButton = document.createElement('button');
-            quitButton.innerText = "Close PC";
-            quitButton.setAttribute('class','pcbutton');
-            let commandPromptHeader = document.createElement('header');
-            commandPromptHeader.appendChild(quitButton);
-            quitButton.addEventListener('click', function(){
-            CONTEXT_AF.closeView();
-            })
-            let commandPromptButton = document.createElement('button');
-            commandPromptButton.setAttribute('class','pcbutton');
-            commandPromptHeader.appendChild(commandPromptButton);
-            commandPromptButton.innerText ="Open Command Prompt";
-            commandPromptButton.addEventListener('click', function() {
-                //open up command prompt
-            })
-            computer.appendChild(commandPromptHeader);
-            let taskbarDiv = document.createElement('div');
-            let taskbar = document.createElement('img');
-            taskbar.setAttribute('src','fakeTaskbar.png');
-            taskbar.setAttribute('class','image-responsive');
-            taskbarDiv.appendChild(taskbar);
-            computer.appendChild(taskbarDiv);
+            computer.style.display = 'block';
+            let cameraEl = document.querySelector('#camera');
+            cameraEl.setAttribute('look-controls', 'enabled: false');
         }
+
         if(AFRAME.utils.device.isMobile()){
             let scontroller = document.querySelector('a-scene').getAttribute('scenecontroller');
             scontroller.data.moveActive = false;
-            let cameraEl = document.querySelector('#camera');
-            cameraEl.setAttribute('look-controls', 'enabled: false');
             let mobileHud = document.querySelector('#mobileOverlay');
             mobileHud.setAttribute('style','opacity: 1');
             //the type of display style may need to be changed but the point is it is not none;
-            computer.style.display = 'block';
             setupcomp();
         }else{
             let playerEl = document.querySelector('#playercam');
-            let cameraEl = document.querySelector('#camera');
             playerEl.setAttribute('movement-controls', 'enabled: false');
-            cameraEl.setAttribute('look-controls', 'enabled: false');
+            
             //the type of display style may need to be changed but the point is it is not none;
-            computer.style.display = 'block';
+            
             setupcomp();
         }
 
@@ -72,7 +88,7 @@ AFRAME.registerComponent('computer',{
     },
     closeView: function(){
         let sceneEl = document.querySelector('a-scene');
-        sceneEl.style.display = '';
+        sceneEl.style.display = 'inherit';
         let computer = document.querySelector('#computerOverlay');  
         if(AFRAME.utils.device.isMobile()){
             console.log('closing pc for mobile');

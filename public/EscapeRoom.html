@@ -64,7 +64,7 @@
                 }
 
 
-                .pcbutton
+                .pcbuttondiv
                 {
     
                     position: center;
@@ -96,6 +96,100 @@
                     background-color: 	#A9A9A9;
                     transition: all 0.5s ease-in;
                 }
+                body {  
+                    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.3)),url(wallpaper.jpg);
+                    font-family: 'Times New Roman', Times, serif;
+                } 
+                #window {  
+                    display: flex;  
+                    justify-content: center;  
+                    align-items: center;  
+                    height: 100vh;
+                } 
+                #command {  
+                    width: 57vw;  
+                    height: 50vh;
+                    z-index: 999;
+                    background-color: darkgray;
+                } 
+                #commandPromptBar{  
+                    display: flex;  
+                    width: 100%;  
+                    align-items: center;  
+                    padding: 0 10px;  
+                    box-sizing: border-box;   
+                    background: linear-gradient(#d8d4d4 0%,#464544 100%);
+                } 
+                #btn {  
+                    display: flex;  
+                    align-items: center;
+                } 
+                .sideBtn {  
+                    display: flex;  
+                    justify-content: center;  
+                    align-items: center;  
+                    padding: 2px;  
+                    margin-right: 6px;  
+                    font-size: 14px;  
+                    height: 20px;  
+                    width: 20px;  
+                    border-radius: 10%;  
+                    background: linear-gradient(#ebe9e7 0%, #3d3d3b 100%);   
+                    box-shadow: 0px 0px 8px 0px #161616, 0px 1px 1px 0px #161616;
+                }
+                .sideBtn:hover {  
+                    cursor: pointer;
+                }
+
+                #return {  
+                    background: linear-gradient(#f35858 0%, #de1212 100%);    
+                    background-clip: padding-box;
+                } 
+
+
+                #commandPromptBody {  
+                    background: rgba(235, 223, 223, 0.89);  
+                    font-family: 'Times New Roman', Times, serif;  
+                    height: calc(100% - 80px);  
+                    padding-top: 10px;  
+                    margin-top: -1px;
+                    padding-left: 5px;
+                } 
+                #text{  
+                    display: flex;
+                }
+                #textOne {  
+                    color: #1a17d8;
+                }
+                #textTwo { 
+                    color: #03330f;
+                }
+                #textThree {  
+                    color: #0c0b0b;
+                }
+                #textFour {  
+                    display: block;  
+                    height: 17px;  
+                    width: 9px;  
+                    margin-left: 10px;  
+                    animation: blink 900ms linear infinite;
+                } 
+                @keyframes blink {  
+                    0% {    
+                        background: #8a8585;  
+                    }  
+                    50% {    
+                        background: #8a8585;  
+                    }  
+                    55% {    
+                        background: transparent;  
+                    }  
+                    99% {    
+                        background: transparent;  
+                    }  100% {    
+                        background: #8a8585;  
+                    }
+                } 
 
             </style>
         </head>
@@ -293,7 +387,40 @@
                 
                 
             </script>
-            <div id="computerOverlay"></div>
+            
+            <div id="computerOverlay" style="display: none;">
+               
+                <header>
+                    <button id="openCommandPrompt" class="btn b1">Open Command Prompt</button>
+                    <button id="closeComputer" class="btn b1">Close Computer</button>
+                </header>
+                
+                <div id="command" style="display: none;">
+                    <!-- Terminal Bar -->       
+                    <section id="commandPromptBar">          
+                      <div id="btn">            
+                        <button class="sideBtn" id="return">&#10005;</button>            
+                        <button class="sideBtn">&#9472;</button>                
+                        <button class="sideBtn">&#9723;</button>          
+                      </div>          
+                      <p id="Title">EscapeRoom@Desktop-%: ~</p>        
+                    </section>        
+                    <!-- Terminal Body -->        
+                    <section id="commandPromptBody">          
+                      <div id="text">            
+                        <span id="textOne">EscapeRoom@Desktop-%:</span>            
+                        <span id="textTwo">~</span>            
+                        <span id="textThree">$ Find the passcode to the second door by using the clues around you. Good Luck!</span>            
+                        <span id="textFour">  </span>          
+                      </div>        
+                    </section>  
+                </div>
+                    
+                
+                <div class="img-tbar1" style="display: none;">
+                    <img src="fakeTaskbar.png" class="img-responsive">   
+                </div>  
+            </div>
             <a-scene scenecontroller physics="debug: false; gravity: 0" loading-screen="dotsColor: red; backgroundColor: black">
                 <a-assets timeout="500000">
                     <a-asset-item id="room_model"   response-type="arraybuffer" src="/assets/Room.glb"  ></a-asset-item>

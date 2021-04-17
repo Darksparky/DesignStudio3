@@ -11,7 +11,9 @@ background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.3)),url(wallpaper.
 } 
 #command {  
   width: 57vw;  
-  height: 50vh;  
+  height: 50vh;
+  z-index: 999;
+  background-color: #8a8585;
 } 
 #commandPrompt {  
   display: flex;  
@@ -49,7 +51,7 @@ background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.3)),url(wallpaper.
 } 
 
 
-#commandPrompttwo {  
+#commandPromptTwo {  
   background: rgba(235, 223, 223, 0.89);  
   font-family: 'Times New Roman', Times, serif;  
   height: calc(100% - 80px);  
