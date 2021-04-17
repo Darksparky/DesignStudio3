@@ -20,16 +20,87 @@
         <p id="Title">EscapeRoom@Desktop-%: ~</p>        
       </section>        
       <!-- Terminal Body -->        
-      <section id="commandPrompttwo">          
-        <div id="text">            
-          <span id="textOne">EscapeRoom@Desktop-%:</span>            
-          <span id="textTwo">~</span>            
-          <span id="textThree">$ Find the passcode to the second door by using the clues around you. Good Luck!</span>            
-          <span id="textFour">  </span>          
-        </div>        
+      <section id="commandPrompttwo" class="command-container">          
+        <div id="command-text-0">
+          <span id="textOne">C:/EscapeRoom@Desktop-%: </span>      
+          <span id="textTwo">~</span>
+          <span id="textThree">$ Unlocked file found! Enter file name to open file. Type "help" for a clue 
+          </span>
+          <input id="command-input" type ="text" name ="password" autofocus>       
+          <!-- <span id="textFour">  </span> -->
+        </div>
       </section>      
     </div>    
   </main>
 
+  <!-- hiddens -->
+  <div id="command-text-tmp" class="hidden">            
+    <span id="textOne">C:/EscapeRoom@Desktop-%: </span>      
+    <span id="textTwo">~</span>
+    <span id="textThree">$ Unlocked file found! Enter file name to open file. Type "help" for a clue 
+    </span>
+    <input id="command-input" type ="text" name ="password">       
+    <!-- <span id="textFour">  </span> -->
+  </div>
+
+  <span id="password-img" class="hidden"><img class="img-wrapper" src="./password-popup.jpeg"></span>
+  <!-- End hiddens -->
 
 </html>
+<script>
+var inputIndex = 0;
+var commandTextbox = document.getElementById("command-input");
+var commandInputLine = document.getElementById("command-text");
+var commandPromptSection = document.getElementById("commandPrompttwo");
+var spanNode = document.createElement("SPAN");
+var textnode = document.createTextNode("Type ls to list the current directory");
+var brNode = document.createElement("BR");
+directoryListNode = document.createElement("UL");
+listElement = document.createElement("LI");
+listElement.appendChild(document.createTextNode("password.txt"));
+directoryListNode.appendChild(listElement)
+spanNode.appendChild(textnode);  
+spanNode.appendChild(brNode);
+
+function handleInput(e) {
+    if (e.key === 'Enter') {
+        var input = e.target.value.toLowerCase();
+      if (input === "help") {
+        commandPromptSection.appendChild(spanNode.cloneNode(true));        
+      } else if (input === "ls") {
+        commandPromptSection.appendChild(directoryListNode.cloneNode(true));
+      } else if (input === "password.txt") {
+        var img = document.getElementById("password-img").cloneNode(true);
+        img.classList.remove("hidden");
+
+        commandPromptSection.appendChild(img);
+      } else {
+        var span = document.createElement("SPAN");
+        var text = document.createTextNode("Error: command '" + e.target.value+ "' does not exist. Please try again.");
+        var br = document.createElement("BR");
+        span.appendChild(text);  
+        span.appendChild(br);
+        span.className = "error-message";
+        commandPromptSection.appendChild(span);
+      }
+
+      removePreviousInputBoxAndAddNewOne();
+      commandPromptSection.scrollTop = commandPromptSection.scrollHeight;
+    }
+}
+
+commandTextbox.addEventListener('keypress', function (e) { handleInput(e); });
+
+function removePreviousInputBoxAndAddNewOne() {
+    var newLine = document.getElementById("command-text-tmp").cloneNode(true);
+    var node = document.getElementById("command-text-" + inputIndex);
+    
+    newLine.classList.remove("hidden");  
+    node.removeChild(document.getElementById("command-input"));
+    inputIndex++;
+    newLine.id = "command-text-" + inputIndex;
+    newLine.addEventListener('keypress', function (e) { handleInput(e); });
+    commandPromptSection.appendChild(newLine);
+    document.getElementById("command-input").focus();
+}
+</script>
